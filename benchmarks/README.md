@@ -42,26 +42,26 @@
 <tr><th>متد</th><th>میانگین زمان اجرا</th><th>حافظه تخصیص‌یافته</th></tr>
 </thead>
 <tbody>
-<tr><td>ValidateNationalCodeString</td><td>22.55 ns</td><td>0 B</td></tr>
-<tr><td>ValidateNationalCodeSpan</td><td>96.42 ns</td><td>48 B</td></tr>
-<tr><td>ValidateCompanyIdString</td><td>21.51 ns</td><td>0 B</td></tr>
-<tr><td>ValidateCompanyIdSpan</td><td>98.87 ns</td><td>48 B</td></tr>
-<tr><td>ValidateEconomicCodeString</td><td>26.58 ns</td><td>0 B</td></tr>
-<tr><td>ValidateEconomicCodeSpan</td><td>103.73 ns</td><td>48 B</td></tr>
-<tr><td>ValidateMobileString</td><td>22.26 ns</td><td>0 B</td></tr>
-<tr><td>ValidateMobileSpan</td><td>97.67 ns</td><td>48 B</td></tr>
-<tr><td>ValidateTelephoneString</td><td>16.58 ns</td><td>0 B</td></tr>
-<tr><td>ValidateTelephoneSpan</td><td>94.45 ns</td><td>48 B</td></tr>
-<tr><td>ValidatePostalCodeString</td><td>12.15 ns</td><td>0 B</td></tr>
-<tr><td>ValidatePostalCodeSpan</td><td>86.67 ns</td><td>48 B</td></tr>
-<tr><td>ValidateCardNumberString</td><td>42.99 ns</td><td>0 B</td></tr>
-<tr><td>ValidateCardNumberSpan</td><td>143.03 ns</td><td>0 B</td></tr>
-<tr><td>ValidatePassportString</td><td>12.77 ns</td><td>0 B</td></tr>
-<tr><td>ValidatePassportSpan</td><td>95.32 ns</td><td>40 B</td></tr>
-<tr><td>ValidateVehiclePlateString</td><td>10.17 ns</td><td>0 B</td></tr>
-<tr><td>ValidateVehiclePlateSpan</td><td>79.72 ns</td><td>40 B</td></tr>
-<tr><td>ValidateIbanString</td><td>140.04 ns</td><td>0 B</td></tr>
-<tr><td>ValidateIbanSpan</td><td>289.80 ns</td><td>80 B</td></tr>
+<tr><td>ValidateNationalCodeString</td><td>24.55 ns</td><td>0 B</td></tr>
+<tr><td>ValidateNationalCodeSpan</td><td>138.27 ns</td><td>48 B</td></tr>
+<tr><td>ValidateCompanyIdString</td><td>23.66 ns</td><td>0 B</td></tr>
+<tr><td>ValidateCompanyIdSpan</td><td>140.74 ns</td><td>48 B</td></tr>
+<tr><td>ValidateEconomicCodeString</td><td>26.73 ns</td><td>0 B</td></tr>
+<tr><td>ValidateEconomicCodeSpan</td><td>144.82 ns</td><td>48 B</td></tr>
+<tr><td>ValidateMobileString</td><td>23.58 ns</td><td>0 B</td></tr>
+<tr><td>ValidateMobileSpan</td><td>137.81 ns</td><td>48 B</td></tr>
+<tr><td>ValidateTelephoneString</td><td>21.01 ns</td><td>0 B</td></tr>
+<tr><td>ValidateTelephoneSpan</td><td>134.91 ns</td><td>40 B</td></tr>
+<tr><td>ValidatePostalCodeString</td><td>11.87 ns</td><td>0 B</td></tr>
+<tr><td>ValidatePostalCodeSpan</td><td>120.50 ns</td><td>48 B</td></tr>
+<tr><td>ValidateCardNumberString</td><td>43.32 ns</td><td>0 B</td></tr>
+<tr><td>ValidateCardNumberSpan</td><td>175.13 ns</td><td>56 B</td></tr>
+<tr><td>ValidatePassportString</td><td>14.51 ns</td><td>0 B</td></tr>
+<tr><td>ValidatePassportSpan</td><td>135.54 ns</td><td>40 B</td></tr>
+<tr><td>ValidateVehiclePlateString</td><td>11.88 ns</td><td>0 B</td></tr>
+<tr><td>ValidateVehiclePlateSpan</td><td>103.98 ns</td><td>40 B</td></tr>
+<tr><td>ValidateIbanString</td><td>119.57 ns</td><td>0 B</td></tr>
+<tr><td>ValidateIbanSpan</td><td>308.68 ns</td><td>80 B</td></tr>
 </tbody>
 </table>
 <!-- /bench-table:overloads -->
@@ -79,24 +79,24 @@
 <tr><th>متد</th><th>میانگین زمان اجرا</th><th>حافظه تخصیص‌یافته</th></tr>
 </thead>
 <tbody>
-<tr><td>ValidateNationalCodeIranValidator</td><td>19.28 ns</td><td>0 B</td></tr>
-<tr><td>ValidateNationalCodePersianPlus</td><td>89.84 ns</td><td>0 B</td></tr>
-<tr><td>ValidateNationalCodeDntPersianUtils</td><td>97.47 ns</td><td>192 B</td></tr>
-<tr><td>ValidateCompanyIdIranValidator</td><td>20.06 ns</td><td>0 B</td></tr>
-<tr><td>ValidateCompanyIdPersianPlus</td><td>195.66 ns</td><td>136 B</td></tr>
-<tr><td>ValidateCompanyIdDntPersianUtils</td><td>107.56 ns</td><td>192 B</td></tr>
-<tr><td>ValidateMobileIranValidator</td><td>20.98 ns</td><td>0 B</td></tr>
-<tr><td>ValidateMobilePersianPlus</td><td>77.56 ns</td><td>0 B</td></tr>
-<tr><td>ValidateMobileDntPersianUtils</td><td>98.40 ns</td><td>96 B</td></tr>
-<tr><td>ValidatePostalCodeIranValidator</td><td>12.15 ns</td><td>0 B</td></tr>
-<tr><td>ValidatePostalCodePersianPlus</td><td>58.18 ns</td><td>0 B</td></tr>
-<tr><td>ValidatePostalCodeDntPersianUtils</td><td>96.29 ns</td><td>96 B</td></tr>
-<tr><td>ValidateCardNumberIranValidator</td><td>39.87 ns</td><td>0 B</td></tr>
-<tr><td>ValidateCardNumberPersianPlus</td><td>370.66 ns</td><td>232 B</td></tr>
-<tr><td>ValidateCardNumberDntPersianUtils</td><td>319.34 ns</td><td>344 B</td></tr>
-<tr><td>ValidateIbanIranValidator</td><td>139.39 ns</td><td>0 B</td></tr>
-<tr><td>ValidateIbanPersianPlus</td><td>250.59 ns</td><td>0 B</td></tr>
-<tr><td>ValidateIbanDntPersianUtils</td><td>197.24 ns</td><td>160 B</td></tr>
+<tr><td>ValidateNationalCodeIranValidator</td><td>23.15 ns</td><td>0 B</td></tr>
+<tr><td>ValidateNationalCodePersianPlus</td><td>153.78 ns</td><td>0 B</td></tr>
+<tr><td>ValidateNationalCodeDntPersianUtils</td><td>114.00 ns</td><td>0 B</td></tr>
+<tr><td>ValidateCompanyIdIranValidator</td><td>23.74 ns</td><td>0 B</td></tr>
+<tr><td>ValidateCompanyIdPersianPlus</td><td>278.17 ns</td><td>136 B</td></tr>
+<tr><td>ValidateCompanyIdDntPersianUtils</td><td>121.82 ns</td><td>192 B</td></tr>
+<tr><td>ValidateMobileIranValidator</td><td>23.76 ns</td><td>0 B</td></tr>
+<tr><td>ValidateMobilePersianPlus</td><td>93.30 ns</td><td>0 B</td></tr>
+<tr><td>ValidateMobileDntPersianUtils</td><td>120.29 ns</td><td>0 B</td></tr>
+<tr><td>ValidatePostalCodeIranValidator</td><td>11.88 ns</td><td>0 B</td></tr>
+<tr><td>ValidatePostalCodePersianPlus</td><td>69.05 ns</td><td>0 B</td></tr>
+<tr><td>ValidatePostalCodeDntPersianUtils</td><td>105.21 ns</td><td>96 B</td></tr>
+<tr><td>ValidateCardNumberIranValidator</td><td>42.72 ns</td><td>0 B</td></tr>
+<tr><td>ValidateCardNumberPersianPlus</td><td>435.56 ns</td><td>0 B</td></tr>
+<tr><td>ValidateCardNumberDntPersianUtils</td><td>355.11 ns</td><td>0 B</td></tr>
+<tr><td>ValidateIbanIranValidator</td><td>119.88 ns</td><td>0 B</td></tr>
+<tr><td>ValidateIbanPersianPlus</td><td>340.52 ns</td><td>0 B</td></tr>
+<tr><td>ValidateIbanDntPersianUtils</td><td>196.50 ns</td><td>145 B</td></tr>
 </tbody>
 </table>
 <!-- /bench-table:vs-rivals -->
@@ -116,12 +116,12 @@
 <tr><th>پیاده‌سازی</th><th>میانگین</th></tr>
 </thead>
 <tbody>
-<tr><td>پردازش مستقیم روی اسپن (موبایل)</td><td>21.14 ns</td></tr>
-<tr><td>کامپایل‌شده با رجکس</td><td>26.46 ns</td></tr>
-<tr><td>GeneratedRegex</td><td>20.02 ns</td></tr>
-<tr><td>پردازش مستقیم روی اسپن (کدپستی)</td><td>12.25 ns</td></tr>
-<tr><td>کامپایل‌شده با رجکس</td><td>26.04 ns</td></tr>
-<tr><td>GeneratedRegex</td><td>20.22 ns</td></tr>
+<tr><td>پردازش مستقیم روی اسپن (موبایل)</td><td>23.18 ns</td></tr>
+<tr><td>کامپایل‌شده با رجکس</td><td>26.79 ns</td></tr>
+<tr><td>GeneratedRegex</td><td>20.07 ns</td></tr>
+<tr><td>پردازش مستقیم روی اسپن (کدپستی)</td><td>12.39 ns</td></tr>
+<tr><td>کامپایل‌شده با رجکس</td><td>26.24 ns</td></tr>
+<tr><td>GeneratedRegex</td><td>20.25 ns</td></tr>
 </tbody>
 </table>
 <!-- /bench-table:regex -->

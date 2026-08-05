@@ -195,12 +195,12 @@ IranDataAnnotationsLocalization.Configure(options =>
 <tr><th>اعتبارسنج</th><th>IranValidator</th><th>Persian.Plus</th><th>DNTPersianUtils</th></tr>
 </thead>
 <tbody>
-<tr><td>کد ملی</td><td>19.28</td><td>89.84</td><td>97.47</td></tr>
-<tr><td>شناسه شرکت</td><td>20.06</td><td>195.66</td><td>107.56</td></tr>
-<tr><td>موبایل</td><td>20.98</td><td>77.56</td><td>98.40</td></tr>
-<tr><td>کد پستی</td><td>12.15</td><td>58.18</td><td>96.29</td></tr>
-<tr><td>کارت بانکی</td><td>39.87</td><td>370.66</td><td>319.34</td></tr>
-<tr><td>شبا</td><td>139.39</td><td>250.59</td><td>197.24</td></tr>
+<tr><td>کد ملی</td><td>23.15</td><td>153.78</td><td>114.00</td></tr>
+<tr><td>شناسه شرکت</td><td>23.74</td><td>278.17</td><td>121.82</td></tr>
+<tr><td>موبایل</td><td>23.76</td><td>93.30</td><td>120.29</td></tr>
+<tr><td>کد پستی</td><td>11.88</td><td>69.05</td><td>105.21</td></tr>
+<tr><td>کارت بانکی</td><td>42.72</td><td>435.56</td><td>355.11</td></tr>
+<tr><td>شبا</td><td>119.88</td><td>340.52</td><td>196.50</td></tr>
 </tbody>
 </table>
 <!-- /bench-table:summary-time -->
@@ -213,12 +213,12 @@ IranDataAnnotationsLocalization.Configure(options =>
 <tr><th>اعتبارسنج</th><th>IranValidator</th><th>Persian.Plus</th><th>DNTPersianUtils</th></tr>
 </thead>
 <tbody>
-<tr><td>کد ملی</td><td>0</td><td>0</td><td>192</td></tr>
+<tr><td>کد ملی</td><td>0</td><td>0</td><td>0</td></tr>
 <tr><td>شناسه شرکت</td><td>0</td><td>136</td><td>192</td></tr>
-<tr><td>موبایل</td><td>0</td><td>0</td><td>96</td></tr>
+<tr><td>موبایل</td><td>0</td><td>0</td><td>0</td></tr>
 <tr><td>کد پستی</td><td>0</td><td>0</td><td>96</td></tr>
-<tr><td>کارت بانکی</td><td>0</td><td>232</td><td>344</td></tr>
-<tr><td>شبا</td><td>0</td><td>0</td><td>160</td></tr>
+<tr><td>کارت بانکی</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>شبا</td><td>0</td><td>0</td><td>145</td></tr>
 </tbody>
 </table>
 <!-- /bench-table:summary-alloc -->
