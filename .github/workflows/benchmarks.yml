@@ -1,0 +1,81 @@
+name: benchmarks
+
+on:
+  schedule:
+    # Weekly: Monday 02:00 UTC - catches perf regressions that PR CI would miss.
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+    inputs:
+      update_baseline:
+        description: 'Update the committed baseline from this run (use after intentional perf changes)'
+        required: false
+        default: 'false'
+  push:
+    tags:
+      - 'v*' # pre-release sanity check
+
+permissions:
+  # This workflow regenerates benchmarks/README*.md + baseline.json and
+  # commits them back, so the default token needs write on the repo contents.
+  contents: write
+
+jobs:
+  benchmarks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Run benchmarks
+        run: |
+          dotnet run -c Release --project benchmarks/IranValidator.Benchmarks \
+            -- --job medium --inprocess --filter "*" > /tmp/benchmark.log 2>&1
+
+      - name: Compare against baseline
+        if: inputs.update_baseline != 'true'
+        run: |
+          python3 benchmarks/ci/benchmark_check.py check /tmp/benchmark.log benchmarks/baseline.json
+        # Fails the job only on real regressions (time > 1.5x or allocation
+        # reappearing). Missing baseline = first run: it is created here and
+        # committed by the step below. Skipped when the run is explicitly
+        # declared the new baseline (update_baseline=true).
+
+      - name: Update baseline (declared new baseline)
+        if: inputs.update_baseline == 'true'
+        run: |
+          python3 benchmarks/ci/benchmark_check.py update /tmp/benchmark.log benchmarks/baseline.json
+
+      - name: Update README benchmark tables
+        run: python3 benchmarks/ci/update_readme.py /tmp/benchmark.log
+
+      - name: Commit benchmark artifacts if changed
+        run: |
+          if git status --porcelain -- benchmarks/ README.md README.en.md | grep -q .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add benchmarks/ README.md README.en.md
+            git commit -m "chore(benchmarks): update baseline and README tables" || true
+            # The run takes ~30 min; origin/main may have moved meanwhile,
+            # so rebase onto the latest before pushing (fail loudly on
+            # conflicts - the next scheduled run regenerates the artifacts).
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; exit 1; }
+            git push
+            echo "benchmark artifacts committed"
+          else
+            echo "benchmark artifacts unchanged"
+          fi
+
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: benchmark-results
+          path: |
+            /tmp/benchmark.log
+            BenchmarkDotNet.Artifacts
+          if-no-files-found: ignore

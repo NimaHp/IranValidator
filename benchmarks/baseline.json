@@ -1,0 +1,178 @@
+{
+  "MobileGeneratedRegex": {
+    "alloc": 0,
+    "ns": 20.02
+  },
+  "MobileRegexCompiled": {
+    "alloc": 0,
+    "ns": 26.46
+  },
+  "MobileSpanValidator": {
+    "alloc": 0,
+    "ns": 21.14
+  },
+  "PostalGeneratedRegex": {
+    "alloc": 0,
+    "ns": 20.22
+  },
+  "PostalRegexCompiled": {
+    "alloc": 0,
+    "ns": 26.04
+  },
+  "PostalSpanValidator": {
+    "alloc": 0,
+    "ns": 12.25
+  },
+  "ValidateCardNumberDntPersianUtils": {
+    "alloc": 344,
+    "ns": 319.34
+  },
+  "ValidateCardNumberIranValidator": {
+    "alloc": 0,
+    "ns": 39.87
+  },
+  "ValidateCardNumberPersianPlus": {
+    "alloc": 232,
+    "ns": 370.66
+  },
+  "ValidateCardNumberSpan": {
+    "alloc": 0,
+    "ns": 143.03
+  },
+  "ValidateCardNumberString": {
+    "alloc": 0,
+    "ns": 42.99
+  },
+  "ValidateCompanyIdDntPersianUtils": {
+    "alloc": 192,
+    "ns": 107.56
+  },
+  "ValidateCompanyIdIranValidator": {
+    "alloc": 0,
+    "ns": 20.06
+  },
+  "ValidateCompanyIdPersianPlus": {
+    "alloc": 136,
+    "ns": 195.66
+  },
+  "ValidateCompanyIdSpan": {
+    "alloc": 48,
+    "ns": 98.87
+  },
+  "ValidateCompanyIdString": {
+    "alloc": 0,
+    "ns": 21.51
+  },
+  "ValidateEconomicCodeSpan": {
+    "alloc": 48,
+    "ns": 103.73
+  },
+  "ValidateEconomicCodeString": {
+    "alloc": 0,
+    "ns": 26.58
+  },
+  "ValidateIbanDntPersianUtils": {
+    "alloc": 160,
+    "ns": 197.24
+  },
+  "ValidateIbanIranValidator": {
+    "alloc": 0,
+    "ns": 139.39
+  },
+  "ValidateIbanPersianPlus": {
+    "alloc": 0,
+    "ns": 250.59
+  },
+  "ValidateIbanSpan": {
+    "alloc": 80,
+    "ns": 289.8
+  },
+  "ValidateIbanString": {
+    "alloc": 0,
+    "ns": 140.04
+  },
+  "ValidateMobileDntPersianUtils": {
+    "alloc": 96,
+    "ns": 98.4
+  },
+  "ValidateMobileIranValidator": {
+    "alloc": 0,
+    "ns": 20.98
+  },
+  "ValidateMobilePersianPlus": {
+    "alloc": 0,
+    "ns": 77.56
+  },
+  "ValidateMobileSpan": {
+    "alloc": 48,
+    "ns": 97.67
+  },
+  "ValidateMobileString": {
+    "alloc": 0,
+    "ns": 22.26
+  },
+  "ValidateNationalCodeDntPersianUtils": {
+    "alloc": 192,
+    "ns": 97.47
+  },
+  "ValidateNationalCodeIranValidator": {
+    "alloc": 0,
+    "ns": 19.28
+  },
+  "ValidateNationalCodePersianPlus": {
+    "alloc": 0,
+    "ns": 89.84
+  },
+  "ValidateNationalCodeSpan": {
+    "alloc": 48,
+    "ns": 96.42
+  },
+  "ValidateNationalCodeString": {
+    "alloc": 0,
+    "ns": 22.55
+  },
+  "ValidatePassportSpan": {
+    "alloc": 40,
+    "ns": 95.32
+  },
+  "ValidatePassportString": {
+    "alloc": 0,
+    "ns": 12.77
+  },
+  "ValidatePostalCodeDntPersianUtils": {
+    "alloc": 96,
+    "ns": 96.29
+  },
+  "ValidatePostalCodeIranValidator": {
+    "alloc": 0,
+    "ns": 12.15
+  },
+  "ValidatePostalCodePersianPlus": {
+    "alloc": 0,
+    "ns": 58.18
+  },
+  "ValidatePostalCodeSpan": {
+    "alloc": 48,
+    "ns": 86.67
+  },
+  "ValidatePostalCodeString": {
+    "alloc": 0,
+    "ns": 12.15
+  },
+  "ValidateTelephoneSpan": {
+    "alloc": 48,
+    "ns": 94.45
+  },
+  "ValidateTelephoneString": {
+    "alloc": 0,
+    "ns": 16.58
+  },
+  "ValidateVehiclePlateSpan": {
+    "alloc": 40,
+    "ns": 79.72
+  },
+  "ValidateVehiclePlateString": {
+    "alloc": 0,
+    "ns": 10.17
+  }
+}

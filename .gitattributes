@@ -1,0 +1,57 @@
+* text=auto
+
+*.cs text diff=csharp
+# Roslyn's IDE0055 (end_of_line) is enforced at build time for this file
+# (TreatWarningsAsErrors); pin CRLF checkouts so fresh clones match
+# .editorconfig instead of the LF that `text=auto` would produce.
+tests/IranValidator.Tests/Localization/ThreadSafetyTests.cs text eol=crlf
+*.csproj text diff=xml
+*.vbproj text diff=xml
+*.fsproj text diff=xml
+*.vcxproj text diff=xml
+*.vcxproj.filters text diff=xml
+*.proj text diff=xml
+*.projitems text diff=xml
+*.shproj text diff=xml
+*.props text diff=xml
+*.targets text diff=xml
+*.ruleset text diff=xml
+*.config text diff=xml
+*.nuspec text diff=xml
+*.resx text diff=xml
+*.vsixmanifest text diff=xml
+*.vsct text diff=xml
+*.xml text diff=xml
+*.json text
+*.md text diff=markdown
+*.yml text
+*.yaml text
+*.sh text eol=lf
+*.ps1 text eol=crlf
+*.bash text eol=lf
+Makefile text eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.bmp binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.tar binary
+*.7z binary
+*.rar binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+*.nupkg binary
+*.snupkg binary
+*.dll binary
+*.exe binary
+*.pdb binary
+*.cache binary
+*.suo binary
+*.user binary
+*.sln.docstates binary

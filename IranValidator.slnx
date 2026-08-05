@@ -1,0 +1,22 @@
+<Solution>
+  <Folder Name="/benchmarks/">
+    <Project Path="benchmarks/IranValidator.Benchmarks/IranValidator.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/IranValidator.Core/IranValidator.Core.csproj" />
+    <Project Path="src/IranValidator.DataAnnotations/IranValidator.DataAnnotations.csproj" />
+    <Project Path="src/IranValidator.FluentValidation/IranValidator.FluentValidation.csproj" />
+    <Project Path="src/IranValidator.AspNetCore/IranValidator.AspNetCore.csproj" />
+    <Project Path="src/IranValidator.Localization/IranValidator.Localization.csproj" />
+    <Project Path="src/IranValidator.MinimalApis/IranValidator.MinimalApis.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/IranValidator.Tests/IranValidator.Tests.csproj" />
+    <Project Path="tests/IranValidator.Net8Smoke/IranValidator.Net8Smoke.csproj" />
+  </Folder>
+</Solution>

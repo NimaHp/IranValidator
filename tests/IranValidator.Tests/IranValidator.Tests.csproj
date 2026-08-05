@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.msbuild" PrivateAssets="All" />
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="GitHubActionsTestLogger" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" />
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="System.ComponentModel.Annotations" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\IranValidator.Core\IranValidator.Core.csproj" />
+    <ProjectReference Include="..\..\src\IranValidator.DataAnnotations\IranValidator.DataAnnotations.csproj" />
+    <ProjectReference Include="..\..\src\IranValidator.FluentValidation\IranValidator.FluentValidation.csproj" />
+    <ProjectReference Include="..\..\src\IranValidator.MinimalApis\IranValidator.MinimalApis.csproj" />
+    <ProjectReference Include="..\..\src\IranValidator.AspNetCore\IranValidator.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\src\IranValidator.Localization\IranValidator.Localization.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <CollectCoverage>true</CollectCoverage>
+    <CoverletOutputFormat>cobertura,opencover</CoverletOutputFormat>
+    <CoverletOutput>$(MSBuildProjectDirectory)/../TestResults/</CoverletOutput>
+    <!-- Threshold 95% is enforced on the TOTAL (aggregate) coverage, not the
+         per-module average: a few defensive branches are unreachable through
+         any public API and would keep the average below 95 forever:
+         - ModelState lambda: e.Value?.Errors.Count — KeyValuePair.Value of a
+           dictionary enumeration is never null;
+         - GetResolver loop: current is not null — CultureInfo.Parent is never
+           null in .NET;
+         - CultureInfoComparer.Equals: x is null || y is null — Dictionary
+           rejects null keys before the comparer is called.
+         The aggregate numbers are the ones reported in README/CI artifacts. -->
+    <Threshold>95</Threshold>
+    <ThresholdStat>total</ThresholdStat>
+    <ThresholdType>line,branch,method</ThresholdType>
+  </PropertyGroup>
+
+</Project>

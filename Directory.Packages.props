@@ -1,0 +1,40 @@
+<Project>
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Core dependencies -->
+    <PackageVersion Include="PolySharp" Version="1.16.0" />
+    <PackageVersion Include="System.Memory" Version="4.5.5" />
+
+    <!-- Build dependencies -->
+    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+
+    <!-- Test dependencies -->
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
+    <PackageVersion Include="xunit.v3" Version="3.2.2" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
+    <PackageVersion Include="FluentAssertions" Version="8.10.0" />
+    <PackageVersion Include="coverlet.msbuild" Version="10.0.1" />
+    <PackageVersion Include="GitHubActionsTestLogger" Version="2.4.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.TestHost" Version="10.0.10" />
+
+    <!-- DataAnnotations -->
+    <PackageVersion Include="System.ComponentModel.Annotations" Version="5.0.0" />
+
+    <!-- FluentValidation -->
+    <PackageVersion Include="FluentValidation" Version="11.11.0" />
+
+    <!-- DI Abstractions (for Localization package) -->
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
+
+    <!-- Benchmark dependencies -->
+    <PackageVersion Include="BenchmarkDotNet" Version="0.14.0" />
+    <PackageVersion Include="Persian.Plus" Version="1.7.2" />
+    <PackageVersion Include="DNTPersianUtils.Core" Version="7.0.0" />
+  </ItemGroup>
+
+</Project>

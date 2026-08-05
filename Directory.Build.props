@@ -1,0 +1,43 @@
+<Project>
+
+  <!-- Local-only machine overrides (e.g. artifact redirection). The file is
+       gitignored and does not exist on CI — default MSBuild paths apply there. -->
+  <Import Project="$(MSBuildThisFileDirectory)Directory.Local.props" Condition="Exists('$(MSBuildThisFileDirectory)Directory.Local.props')" />
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <AnalysisLevel>latest-Recommended</AnalysisLevel>
+    <Deterministic>true</Deterministic>
+
+    <!-- SourceLink & Symbols -->
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <!-- Shared NuGet package metadata — single source of truth for all packages.
+       Per-package values (PackageId, Description, PackageTags, PackageReadmeFile)
+       stay in each csproj. VersionPrefix here is the local-build default; CI
+       overrides the version from the git tag (see release.yml). -->
+  <PropertyGroup>
+    <Authors>IranValidator Contributors</Authors>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/NimaHp/IranValidator</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/NimaHp/IranValidator</RepositoryUrl>
+    <PackageIcon>icon.png</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)assets/icon.png" Pack="true" PackagePath="\" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>

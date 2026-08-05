@@ -1,0 +1,32 @@
+name: Feature request
+description: Suggest a new validator, package or capability
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion! Check the README roadmap first — some items
+        (e.g. SourceGenerators, JSON Schema) are already planned.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / use case
+      description: What do you need to validate or achieve, and why?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What should the API look like? (name, signatures, behavior)
+      render: csharp
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: New validator for an Iranian data type
+        - label: New integration package (DataAnnotations / FluentValidation / ASP.NET Core / Minimal APIs)
+        - label: New capability (SourceGenerator, JSON Schema, localization)
+        - label: Documentation improvement

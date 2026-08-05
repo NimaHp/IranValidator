@@ -1,0 +1,54 @@
+name: Bug report
+description: Report a bug in IranValidator
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! Please fill in the details below. If you're unsure
+        whether something is a bug, open a discussion first.
+  - type: input
+    id: package
+    attributes:
+      label: Package and version
+      description: e.g. IranValidator.Core 1.0.0
+      placeholder: IranValidator.Core 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: target
+    attributes:
+      label: Target framework
+      description: e.g. net10.0, net8.0, netstandard2.0
+      placeholder: net10.0
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: Input value
+      description: The value being validated (or a minimal repro case)
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What actually happened? Include the ValidationResult / exception / error message.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction steps
+      description: Minimal code snippet that reproduces the issue
+      render: csharp

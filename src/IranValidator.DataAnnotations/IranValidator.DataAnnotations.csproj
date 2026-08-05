@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net8.0;net10.0</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+
+    <!-- NuGet Metadata -->
+    <PackageId>IranValidator.DataAnnotations</PackageId>
+    <Description>DataAnnotations validation attributes for Persian data. Provides [NationalCode], [IranMobile], [IranPostalCode], [IranTelephone], [IranCardNumber], [IranCompanyId], [IranEconomicCode], [IranPassport], [IranVehiclePlate] and [IranIban].</Description>
+    <PackageTags>iran;validation;data-annotations;aspnet;dotnet</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Annotations" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IranValidator.Core\IranValidator.Core.csproj" />
+    <ProjectReference Include="..\IranValidator.Localization\IranValidator.Localization.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>
