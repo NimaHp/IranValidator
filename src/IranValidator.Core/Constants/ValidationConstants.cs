@@ -1,4 +1,4 @@
-namespace IranValidator.Core.Constants;
+﻿namespace IranValidator.Core.Constants;
 
 /// <summary>
 /// Constants used across validation operations.
@@ -27,7 +27,7 @@ internal static class ValidationConstants
     // Card Number
     public const int CardNumberLength = 16;
 
-    /// <summary>Length of the bank identification number (BIN) prefix on a card.</summary>
+    // Length of the bank identification number (BIN) prefix on a card.
     public const int BinLength = 6;
 
     // Company ID
@@ -42,4 +42,7 @@ internal static class ValidationConstants
 
     // Vehicle Plate
     public const int VehiclePlateLength = 8;
+
+    // Maximum accepted input length, checked BEFORE normalization.
+    public const int MaxInputLength = 128;
 }

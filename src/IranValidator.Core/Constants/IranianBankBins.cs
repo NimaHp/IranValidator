@@ -1,4 +1,4 @@
-namespace IranValidator.Core.Constants;
+﻿namespace IranValidator.Core.Constants;
 
 /// <summary>
 /// Six-digit Bank Identification Numbers (BINs) assigned to Iranian banks on the

@@ -93,6 +93,36 @@ public class NormalizerDetectionTests
         ZeroWidthNormalizer.ContainsZeroWidth(input.AsSpan()).Should().Be(expected);
     }
 
+    // === ArabicLetterNormalizer.ContainsArabicLetter ===
+
+    [Theory]
+    [InlineData("ي", true)]  // Arabic yeh
+    [InlineData("ك", true)]  // Arabic kaf
+    [InlineData("يـكـ", true)]
+    [InlineData("۱۲ي۳۴۵", true)]
+    [InlineData("ی", false)] // Persian yeh
+    [InlineData("ک", false)] // Persian kaf
+    [InlineData("abcdef", false)]
+    [InlineData("", false)]
+    public void ContainsArabicLetter_DetectsCorrectly(string input, bool expected)
+    {
+        ArabicLetterNormalizer.ContainsArabicLetter(input.AsSpan()).Should().Be(expected);
+    }
+
+    // === IranWordNormalizer.ContainsIranWord ===
+
+    [Theory]
+    [InlineData("ایران", true)]
+    [InlineData("۱۲ب۳۴۵ایران۶۷", true)]
+    [InlineData("۱۲ ب ۳۴۵ ایران ۶۷", true)]
+    [InlineData("12ب34567", false)]
+    [InlineData("ایرونی", false)]
+    [InlineData("", false)]
+    public void ContainsIranWord_DetectsCorrectly(string input, bool expected)
+    {
+        IranWordNormalizer.ContainsIranWord(input.AsSpan()).Should().Be(expected);
+    }
+
     // === Normalizer edge cases ===
 
     [Fact]
@@ -151,5 +181,37 @@ public class NormalizerDetectionTests
         var normalizer = new CompositeNormalizer();
         var result = normalizer.Normalize("\u200E۰۹۱۲-۱۲۳ ۴۵۶۷\u200F".AsSpan());
         result.Should().Be("09121234567");
+    }
+
+    [Fact]
+    public void IranWordNormalizer_RemovesIranWord()
+    {
+        Span<char> output = stackalloc char[20];
+        int len = IranWordNormalizer.Normalize("۱۲ب۳۴۵ایران۶۷".AsSpan(), output);
+        output.Slice(0, len).ToString().Should().Be("۱۲ب۳۴۵۶۷");
+    }
+
+    [Fact]
+    public void CompositeNormalizer_RemovesIranWordFromFullPlate()
+    {
+        var normalizer = new CompositeNormalizer();
+        var result = normalizer.Normalize("۱۲ ب ۳۴۵ ایران ۶۷".AsSpan());
+        result.Should().Be("12ب34567");
+    }
+
+    [Fact]
+    public void ArabicLetterNormalizer_ConvertsArabicYehToPersian()
+    {
+        Span<char> output = stackalloc char[8];
+        ArabicLetterNormalizer.Normalize("12ي34567".AsSpan(), output);
+        new string(output).Should().Be("12ی34567");
+    }
+
+    [Fact]
+    public void CompositeNormalizer_ConvertsArabicYehAndRemovesIranWord()
+    {
+        var normalizer = new CompositeNormalizer();
+        var result = normalizer.Normalize("۱۲ ب ۳۴۵ ايران ۶۷".AsSpan());
+        result.Should().Be("12ب34567");
     }
 }

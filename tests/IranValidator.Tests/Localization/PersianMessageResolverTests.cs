@@ -20,6 +20,7 @@ public class PersianMessageResolverTests
     [InlineData(ValidationErrorCode.InvalidBankCode, "کد بانک")]
     [InlineData(ValidationErrorCode.InvalidAreaCode, "پیش‌شماره")]
     [InlineData(ValidationErrorCode.UnsupportedIssuer, "بانک ایرانی")]
+    [InlineData(ValidationErrorCode.ValueTooLarge, "بیش از حد مجاز")]
     public void GetMessage_WithPropertyName_ContainsCorrectPersianKeywords(ValidationErrorCode code, string expectedKeyword)
     {
         var msg = _resolver.GetMessage(code, "موبایل", null);

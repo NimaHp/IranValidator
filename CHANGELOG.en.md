@@ -6,6 +6,23 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-08-10
+
+### Added
+
+* **Motorcycle plates:** VehiclePlateValidator now also accepts 8-digit motorcycle plates — a 3-digit province code plus a 5-digit serial, with no letter. Detection is automatic (an all-digit 8-char plate is treated as a motorcycle) and the 3-digit code is validated against the Wikipedia table (MotorcycleProvinceCodes). Unlike car plates, motorcycle plates never contain the digit 0.
+* **Full plate format with the word «ایران»:** New IranWordNormalizer strips the word «ایران» so inputs like «۱۲ ب ۳۴۵ ایران ۶۷» normalize to the compact «۱۲ب۳۴۵۶۷».
+* **Arabic letter normalization:** ArabicLetterNormalizer converts Arabic «ي» and «ك» to their Persian equivalents «ی» and «ک»; the plate letter and the «ایران» word are now accepted in both typings.
+
+### Fixed
+
+* **Vehicle plate — zero rule:** Plate digits are now 1–9 only; 0 is allowed solely as the second digit of the province code (e.g. Tehran 10/20/.../70). A 0 anywhere else is rejected with InvalidFormat, matching real plates.
+* **Input length cap & safe normalization:** Values longer than 128 characters are now rejected with the new ValueTooLarge error code BEFORE normalization; the normalizer also rents pooled heap buffers for large inputs instead of unbounded stackalloc, so oversized input can no longer crash the process via StackOverflow.
+* **UseIranValidation middleware:** Only ValidationException is mapped to 400; any other exception returns a generic 500 (internal details are never leaked) and is logged server-side.
+* **Vehicle plate:** The Persian letter ز (Ministry of Defence series, listed by Wikipedia) was added to the set of valid issuance letters.
+
+## [1.0.0] - 2026-08-05
+
 ### Added
 
 * **10 Core Validators:** National Code, Company ID, Economic Code, Bank Card Number

@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using FluentAssertions;
 using IranValidator.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -34,7 +35,7 @@ public class ApplicationBuilderExtensionsTests
     }
 
     [Fact]
-    public async Task UseIranValidation_WhenPipelineThrows_ReturnsBadRequestProblemDetails()
+    public async Task UseIranValidation_WhenUnexpectedException_ReturnsGeneric500_WithoutLeakingMessage()
     {
         var builder = WebApplication.CreateSlimBuilder();
         builder.WebHost.UseTestServer();
@@ -48,10 +49,37 @@ public class ApplicationBuilderExtensionsTests
             using var client = app.GetTestClient();
             using var response = await client.GetAsync("/", TestContext.Current.CancellationToken);
 
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.InternalServerError);
+            response.Content.Headers.ContentType?.MediaType.Should().Be("application/problem+json");
+            var body = await response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
+            body.Should().Contain("Internal Server Error");
+            body.Should().NotContain("boom");
+        }
+        finally
+        {
+            await app.StopAsync(TestContext.Current.CancellationToken);
+        }
+    }
+
+    [Fact]
+    public async Task UseIranValidation_WhenValidationException_ReturnsBadRequestWithMessage()
+    {
+        var builder = WebApplication.CreateSlimBuilder();
+        builder.WebHost.UseTestServer();
+        var app = builder.Build();
+        app.UseIranValidation();
+        app.Run(_ => throw new ValidationException("field is invalid"));
+
+        await app.StartAsync(TestContext.Current.CancellationToken);
+        try
+        {
+            using var client = app.GetTestClient();
+            using var response = await client.GetAsync("/", TestContext.Current.CancellationToken);
+
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
             response.Content.Headers.ContentType?.MediaType.Should().Be("application/problem+json");
             var body = await response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
-            body.Should().Contain("boom");
+            body.Should().Contain("field is invalid");
         }
         finally
         {

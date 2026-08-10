@@ -33,5 +33,8 @@ public enum ValidationErrorCode
     InvalidAreaCode,
 
     /// <summary>The card issuer (BIN) is not a supported Iranian bank.</summary>
-    UnsupportedIssuer
+    UnsupportedIssuer,
+
+    /// <summary>The input value exceeds the maximum supported length before normalization.</summary>
+    ValueTooLarge
 }

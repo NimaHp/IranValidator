@@ -24,6 +24,7 @@ public sealed class PersianMessageResolver : IValidationMessageResolver
             ValidationErrorCode.InvalidBankCode => $"کد بانک {name} نامعتبر است.",
             ValidationErrorCode.InvalidAreaCode => $"پیش‌شماره {name} نامعتبر است.",
             ValidationErrorCode.UnsupportedIssuer => $"{name} متعلق به هیچ بانک ایرانی نیست.",
+            ValidationErrorCode.ValueTooLarge => $"طول {name} بیش از حد مجاز است.",
             _ => $"{name} معتبر نیست."
         };
     }

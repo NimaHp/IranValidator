@@ -42,6 +42,12 @@ public sealed class NationalCodeValidator : IStringValidator
     private static ValidationResult ValidateCore(ReadOnlySpan<char> value, string? original)
     {
 
+        // Hard input-size bound BEFORE normalization — oversized payloads fail
+        // fast and never scale scratch buffers with input size. Legitimate
+        // formatted values (digits + spaces/dashes/marks) stay far below this.
+        if (value.Length > ValidationConstants.MaxInputLength)
+            return ValidationResult.Error(ValidationErrorCode.ValueTooLarge);
+
         // Normalize input
         string normalized = Normalizer.Normalize(value, original);
 

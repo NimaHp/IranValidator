@@ -175,7 +175,7 @@ public sealed class ValidatorBoundaryTests
         validator.Validate("\u200F\u200E".AsSpan()).ErrorCode.Should().Be(ValidationErrorCode.ValueEmpty);
     }
 
-    // === Very long input: must fail fast and never throw ===
+    // === Oversized input: rejected fast by the pre-normalization length guard ===
 
     [Theory]
     [MemberData(nameof(AllValidators))]
@@ -183,12 +183,36 @@ public sealed class ValidatorBoundaryTests
     {
         var action = () =>
         {
-            validator.Validate(new string('0', 100_000)).Success.Should().BeFalse();
-            validator.Validate(new string(' ', 100_000)).ErrorCode.Should().Be(ValidationErrorCode.ValueEmpty);
-            validator.Validate(new string('1', 100_000) + "A").Success.Should().BeFalse();
+            // ASCII digits — the clean fast path would otherwise be hit.
+            validator.Validate(new string('0', 100_000)).ErrorCode.Should().Be(ValidationErrorCode.ValueTooLarge);
+            validator.Validate(new string('1', 1_000_000)).ErrorCode.Should().Be(ValidationErrorCode.ValueTooLarge);
+
+            // Non-fast-path characters (whitespace / dash / Persian digit / bidi
+            // mark): previously these hit unbounded stackalloc; the guard must
+            // reject them before any normalization or stack allocation occurs.
+            validator.Validate(new string(' ', 1_000_000)).ErrorCode.Should().Be(ValidationErrorCode.ValueTooLarge);
+            validator.Validate(new string('-', 1_000_000)).ErrorCode.Should().Be(ValidationErrorCode.ValueTooLarge);
+            validator.Validate(new string('۰', 1_000_000)).ErrorCode.Should().Be(ValidationErrorCode.ValueTooLarge);
+            validator.Validate(new string('\u200F', 1_000_000)).ErrorCode.Should().Be(ValidationErrorCode.ValueTooLarge);
+
+            validator.Validate(new string('0', 100_000) + "A").ErrorCode.Should().Be(ValidationErrorCode.ValueTooLarge);
         };
 
         action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void MobileValidator_AtCapBoundary_StillNormalized_AndValid()
+    {
+        // Length exactly at the 128-char cap (11 digits + formatting/spacing):
+        // the guard must not reject legitimate formatted input.
+        var atCap = "0912 123 4567" + new string(' ', 115);
+        atCap.Length.Should().Be(128);
+        MobileValidator.Instance.Validate(atCap).Success.Should().BeTrue();
+
+        // One char over the cap → rejected.
+        MobileValidator.Instance.Validate(atCap + " ").ErrorCode
+            .Should().Be(ValidationErrorCode.ValueTooLarge);
     }
 
     // === Failure results never carry a normalized value ===

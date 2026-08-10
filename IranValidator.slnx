@@ -4,19 +4,29 @@
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
+    <File Path="CHANGELOG.en.md" />
+    <File Path="CHANGELOG.md" />
+    <File Path="CONTRIBUTING.en.md" />
+    <File Path="CONTRIBUTING.md" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
+    <File Path="MIGRATION.en.md" />
+    <File Path="MIGRATION.md" />
+    <File Path="README.en.md" />
+    <File Path="README.md" />
+    <File Path="SECURITY.en.md" />
+    <File Path="SECURITY.md" />
   </Folder>
   <Folder Name="/src/">
+    <Project Path="src/IranValidator.AspNetCore/IranValidator.AspNetCore.csproj" />
     <Project Path="src/IranValidator.Core/IranValidator.Core.csproj" />
     <Project Path="src/IranValidator.DataAnnotations/IranValidator.DataAnnotations.csproj" />
     <Project Path="src/IranValidator.FluentValidation/IranValidator.FluentValidation.csproj" />
-    <Project Path="src/IranValidator.AspNetCore/IranValidator.AspNetCore.csproj" />
     <Project Path="src/IranValidator.Localization/IranValidator.Localization.csproj" />
     <Project Path="src/IranValidator.MinimalApis/IranValidator.MinimalApis.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/IranValidator.Tests/IranValidator.Tests.csproj" />
     <Project Path="tests/IranValidator.Net8Smoke/IranValidator.Net8Smoke.csproj" />
+    <Project Path="tests/IranValidator.Tests/IranValidator.Tests.csproj" />
   </Folder>
 </Solution>

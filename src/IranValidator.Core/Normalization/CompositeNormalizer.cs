@@ -1,3 +1,5 @@
+using System.Buffers;
+
 namespace IranValidator.Core.Normalization;
 
 /// <summary>
@@ -6,6 +8,13 @@ namespace IranValidator.Core.Normalization;
 public sealed class CompositeNormalizer
 {
     /// <summary>
+    /// Inputs of this length or less use stack-allocated scratch buffers;
+    /// longer inputs rent pooled heap buffers so oversized input can never
+    /// exhaust the thread stack (StackOverflowException is uncatchable).
+    /// </summary>
+    private const int StackallocThreshold = 1024;
+
+    /// <summary>
     /// Applies all normalizers in sequence and returns the normalized string.
     /// </summary>
     public string Normalize(ReadOnlySpan<char> input)
@@ -13,11 +22,31 @@ public sealed class CompositeNormalizer
         if (input.IsEmpty)
             return string.Empty;
 
-        // Allocate buffer large enough for worst case
-        int maxLength = input.Length;
-        Span<char> buffer = stackalloc char[maxLength];
-        Span<char> temp = stackalloc char[maxLength];
+        // Small inputs use stack-allocated scratch buffers; larger inputs rent
+        // pooled heap buffers instead of raw stackalloc, which would crash the
+        // process (StackOverflowException is uncatchable) on oversized input.
+        if (input.Length <= StackallocThreshold)
+        {
+            Span<char> buffer = stackalloc char[input.Length];
+            Span<char> temp = stackalloc char[input.Length];
+            return NormalizeCore(buffer, temp, input);
+        }
 
+        char[] bufferPool = ArrayPool<char>.Shared.Rent(input.Length);
+        char[] tempPool = ArrayPool<char>.Shared.Rent(input.Length);
+        try
+        {
+            return NormalizeCore(bufferPool.AsSpan(0, input.Length), tempPool.AsSpan(0, input.Length), input);
+        }
+        finally
+        {
+            ArrayPool<char>.Shared.Return(bufferPool);
+            ArrayPool<char>.Shared.Return(tempPool);
+        }
+    }
+
+    private static string NormalizeCore(Span<char> buffer, Span<char> temp, ReadOnlySpan<char> input)
+    {
         // Copy input to buffer
         input.CopyTo(buffer);
         int currentLength = input.Length;
@@ -35,12 +64,26 @@ public sealed class CompositeNormalizer
         currentLength = DirectionMarkNormalizer.Normalize(buffer.Slice(0, currentLength), temp);
         temp.Slice(0, currentLength).CopyTo(buffer);
 
+        // Arabic letter variants (ي، ك) are converted to their Persian
+        // equivalents (ی، ک) first, so the plate letter and the «ایران» word
+        // are matched as one regardless of how the user's keyboard typed them.
+        ArabicLetterNormalizer.Normalize(buffer.Slice(0, currentLength), temp);
+        temp.Slice(0, currentLength).CopyTo(buffer);
+
+        // The word «ایران» printed on vehicle plates is stripped here so the
+        // full spelling «۱۲ ب ۳۴۵ ایران ۶۷» normalizes to «۱۲ب۳۴۵۶۷». This only
+        // ever matches plate inputs; no other Iranian identifier contains it.
+        currentLength = IranWordNormalizer.Normalize(buffer.Slice(0, currentLength), temp);
+        temp.Slice(0, currentLength).CopyTo(buffer);
+
         PersianDigitNormalizer.Normalize(buffer.Slice(0, currentLength), temp);
         temp.Slice(0, currentLength).CopyTo(buffer);
 
         ArabicDigitNormalizer.Normalize(buffer.Slice(0, currentLength), temp);
         temp.Slice(0, currentLength).CopyTo(buffer);
 
+        // NOTE: 'temp' holds the final content — the last CopyTo above copies
+        // from 'temp' to 'buffer' and does not modify 'temp'.
 #if NETSTANDARD2_0
         return temp.Slice(0, currentLength).ToString();
 #else

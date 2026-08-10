@@ -20,6 +20,7 @@ public class EnglishMessageResolverTests
     [InlineData(ValidationErrorCode.InvalidBankCode, "has an invalid bank code")]
     [InlineData(ValidationErrorCode.InvalidAreaCode, "has an invalid area code")]
     [InlineData(ValidationErrorCode.UnsupportedIssuer, "is not issued by an Iranian bank")]
+    [InlineData(ValidationErrorCode.ValueTooLarge, "is too long")]
     public void GetMessage_WithPropertyName_ReturnsFormattedMessage(ValidationErrorCode code, string expectedSuffix)
     {
         var msg = _resolver.GetMessage(code, "Mobile", null);

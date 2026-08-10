@@ -29,15 +29,15 @@ IranValidator is a lightweight, high-performance, dependency-free validation lib
 
 | Validator | Format | Validation Logic |
 | :--- | :--- | :--- |
-| National Code (کد ملی) | 10 digits | Weighted-sum checksum algorithm |
-| Company ID (شناسه ملی شرکت) | 11 digits | Legal weight checksum algorithm |
-| Economic Code (کد اقتصادی) | 12 digits | Checksum algorithm with weights [29,27,23,19,17,13,7,5,3,2,1] |
+| National Code | 10 digits | Weighted-sum checksum algorithm |
+| Company ID | 11 digits | Legal weight checksum algorithm |
+| Economic Code | 12 digits | Checksum algorithm with weights [29,27,23,19,17,13,7,5,3,2,1] |
 | Mobile Number | 11 digits | Prefix verification against 42 valid 09XX operator ranges |
 | Postal Code | 10 digits | Official structure rule evaluation |
 | Card Number | 16 digits | Luhn algorithm + Iranian bank BIN prefix check |
-| IBAN (شماره شبا) | IR prefix | Single-pass MOD-97 algorithm + 3-digit bank code verification |
+| IBAN | IR prefix | Single-pass MOD-97 algorithm + 3-digit bank code verification |
 | Passport Number | 1 letter + 8 digits | Standard format evaluation |
-| Vehicle Plate | Standard Iranian format | Structural pattern + province code verification |
+| Vehicle Plate | Standard Iranian format (car & motorcycle) | Structural pattern + province code verification |
 | Landline Phone | 11 digits | 0 + 2-digit province code + 8-digit local number (starting 2–9 across 31 codes) |
 
 > ⚠️ **Scope Limitation:** This library validates input **format, structure, and checksum integrity**. It does not query central registries to confirm if an identity, account, or line is active or currently issued. For real-time existence queries, consult authoritative services (Civil Registry, Shaparak, Telecom Operators, etc.).
