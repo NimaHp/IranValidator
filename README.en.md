@@ -1,6 +1,6 @@
 ﻿# IranValidator
 
-**The Standard Validator for Persian Data in .NET** — 1.0.0
+**The Standard Validator for Persian Data in .NET** — 1.1.0
 
 [![Build](https://github.com/NimaHp/IranValidator/actions/workflows/ci.yml/badge.svg)](https://github.com/NimaHp/IranValidator/actions)
 [![Benchmarks](https://github.com/NimaHp/IranValidator/actions/workflows/benchmarks.yml/badge.svg)](https://github.com/NimaHp/IranValidator/actions)
