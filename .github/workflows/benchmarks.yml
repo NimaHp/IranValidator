@@ -2,8 +2,9 @@ name: benchmarks
 
 on:
   schedule:
-    # Weekly: Monday 02:00 UTC - catches perf regressions that PR CI would miss.
-    - cron: '0 2 * * 1'
+    # Monthly: 1st of month 02:00 UTC. Catches perf regressions that PR CI
+    # would miss without running the ~90 min suite every week.
+    - cron: '0 2 1 * *'
   workflow_dispatch:
     inputs:
       update_baseline:
@@ -31,27 +32,35 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Run benchmarks
+      - name: Run benchmarks (x3 for median)
         run: |
-          dotnet run -c Release --project benchmarks/IranValidator.Benchmarks \
-            -- --job medium --inprocess --filter "*" > /tmp/benchmark.log 2>&1
+          for i in 1 2 3; do
+            dotnet run -c Release --project benchmarks/IranValidator.Benchmarks \
+              -- --job medium --inprocess --filter "*" > /tmp/benchmark_$i.log 2>&1
+          done
 
       - name: Compare against baseline
         if: inputs.update_baseline != 'true'
         run: |
-          python3 benchmarks/ci/benchmark_check.py check /tmp/benchmark.log benchmarks/baseline.json
-        # Fails the job only on real regressions (time > 1.5x or allocation
-        # reappearing). Missing baseline = first run: it is created here and
-        # committed by the step below. Skipped when the run is explicitly
-        # declared the new baseline (update_baseline=true).
+          python3 benchmarks/ci/benchmark_check.py check \
+            /tmp/benchmark_1.log /tmp/benchmark_2.log /tmp/benchmark_3.log \
+            benchmarks/baseline.json
+        # Fails the job only on real regressions in IranValidator's own
+        # validators (time > 1.5x or alloc beyond the combined tolerance).
+        # Measurements are the median across the 3 runs to absorb runner
+        # noise; third-party comparison rows are reported, never fatal.
+        # Missing baseline = first run: it is created here and committed by
+        # the step below. Skipped when update_baseline=true.
 
       - name: Update baseline (declared new baseline)
         if: inputs.update_baseline == 'true'
         run: |
-          python3 benchmarks/ci/benchmark_check.py update /tmp/benchmark.log benchmarks/baseline.json
+          python3 benchmarks/ci/benchmark_check.py update \
+            /tmp/benchmark_1.log /tmp/benchmark_2.log /tmp/benchmark_3.log \
+            benchmarks/baseline.json
 
       - name: Update README benchmark tables
-        run: python3 benchmarks/ci/update_readme.py /tmp/benchmark.log
+        run: python3 benchmarks/ci/update_readme.py /tmp/benchmark_1.log
 
       - name: Commit benchmark artifacts if changed
         run: |
@@ -76,6 +85,6 @@ jobs:
         with:
           name: benchmark-results
           path: |
-            /tmp/benchmark.log
+            /tmp/benchmark_*.log
             BenchmarkDotNet.Artifacts
           if-no-files-found: ignore
