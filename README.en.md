@@ -187,7 +187,7 @@ Benchmark reproduction steps: [Benchmark Suite Documentation](benchmarks/README.
 ## CI/CD
 
 - **ci.yml** — build + test + coverage gate (95% line threshold) on every push/PR
-- **benchmarks.yml** — weekly benchmark run + baseline comparison (fail on regression) + run before Release
+- **benchmarks.yml** — monthly benchmark run (median of 3) + baseline comparison (fail on real regression) + run before Release
 - **release.yml** — automatic publish to NuGet.org and GitHub Release creation on `v*` tags
 
 ## License

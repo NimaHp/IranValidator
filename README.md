@@ -268,7 +268,7 @@ IranDataAnnotationsLocalization.Configure(options =>
 ## CI/CD
 
 - **فایل `ci.yml`** — بیلد + تست + گیت پوشش (آستانهٔ ۹۵٪) در هر push/PR
-- **فایل `benchmarks.yml`** — اجرای هفتگی بنچمارک + مقایسه با baseline (شکست در صورت افت عملکرد) + اجرا پیش از Release
+- **فایل `benchmarks.yml`** — اجرای ماهانهٔ بنچمارک (میانهٔ ۳ اجرا) + مقایسه با baseline (شکست در صورت افت واقعی عملکرد) + اجرا پیش از Release
 - **فایل `release.yml`** — انتشار خودکار به NuGet.org و ساخت GitHub Release روی تگ‌های `v*`
 
 ## لایسنس

@@ -12,7 +12,7 @@ Using **BenchmarkDotNet**, the benchmarks measure:
 2. **Head-to-Head Comparison:** Performance evaluation against two widely-used Persian libraries — Persian.Plus and DNTPersianUtils.Core — covering the 6 input types supported by all three implementations.
 3. **Hand-Rolled Span vs Regular Expressions:** Direct span-based parsing compared against compiled Regex and GeneratedRegex (mobile and postal code).
 
-Automated benchmark checks run weekly in CI to detect potential performance regressions.
+Automated benchmark checks run monthly in CI to detect potential performance regressions.
 
 ## Methodology
 
@@ -134,6 +134,6 @@ dotnet run -c Release --project benchmarks/IranValidator.Benchmarks -- --job med
 
 ### Short Technical Appendix (for Maintainers)
 
-* `benchmarks.yml` runs every week (Monday 02:00 UTC) and on every `v*` push; `ci/benchmark_check.py` compares the results against `baseline.json` (time regression > 1.5× or allocation > 16 B fails the check).
+* `benchmarks.yml` runs every month (1st, 02:00 UTC) and on every `v*` push; it runs the suite three times and `ci/benchmark_check.py` compares the median against `baseline.json` (time regression > 1.5× or allocation beyond max(64 B, 20% of baseline) fails the check). Third-party comparison rows (Persian.Plus, DNTPersianUtils, regex) are reported but never fail the gate.
 * `--inprocess` is required because the default toolchain crashes silently in restricted containers; for release numbers, run on a clean CI machine.
 * `DisableOptimizationsValidator` is disabled because Persian.Plus ships an unoptimized binary.
