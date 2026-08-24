@@ -36,5 +36,8 @@ public enum ValidationErrorCode
     UnsupportedIssuer,
 
     /// <summary>The input value exceeds the maximum supported length before normalization.</summary>
-    ValueTooLarge
+    ValueTooLarge,
+
+    /// <summary>The validated member is not a string (DataAnnotations attributes accept strings only).</summary>
+    InvalidType
 }

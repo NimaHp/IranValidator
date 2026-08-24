@@ -21,7 +21,7 @@ public sealed class IranValidateAttribute : Attribute, IAsyncActionFilter
             context.Result = new Microsoft.AspNetCore.Mvc.BadRequestObjectResult(
                 new
                 {
-                    Type = "https://tools.ietf.org/html/rfc4918#section-11.2",
+                    Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
                     Title = IranAspNetCoreLocalization.GetTitle(),
                     Status = Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest,
                     Errors = context.ModelState

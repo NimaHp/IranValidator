@@ -1,10 +1,23 @@
-# تغییرات (Changelog)
+﻿# تغییرات (Changelog)
 
 **فارسی** | [English](CHANGELOG.en.md)
 
-این سند از [Keep a Changelog](https://keepachangelog.com/fa-IR/1.1.0/) و سیستم نسخه‌گذاری [SemVer](https://semver.org/lang/fa/) پیروی می‌کند.
+این سند از [Keep a Changelog](https://keepachangelog.com/fa/1.1.0/) و سیستم نسخه‌گذاری [SemVer](https://semver.org/lang/fa/) پیروی می‌کند.
 
 ## [Unreleased]
+
+## [1.2.0] - 2026-08-24
+
+### افزودهشده
+
+* **کد خطای جدید `InvalidType`:** عضو جدید `ValidationErrorCode.InvalidType` افزوده شد؛ ویژگیهای DataAnnotations هنگام مواجهه با اعضای غیر رشتهای این کد را تولید میکنند و پیام محلیشده آن («باید یک رشته باشد.» / "must be a string.") به هر دو رزولور فارسی و انگلیسی اضافه شد.
+
+### اصلاحشده
+
+* **فیلتر IranValidate:** لینک `Type` در پاسخ ProblemDetails که به RFC 4918 (کد وضعیت 422) اشاره میکرد، به RFC 7231 §6.5.1 اصلاح شد تا با پاسخ واقعی 400 سازگار باشد.
+* **بیلد محلی در برابر CI:** پرچم `ContinuousIntegrationBuild` (و همراه آن `EmbedUntrackedSources`) دیگر بیقید فعال نیست و تنها روی CI (متغیر `CI=true`) ست میشود؛ بیلدهای محلی PDB معمولی دریافت میکنند و SourceLink فقط مربوط به انتشار است.
+* **پیام اعضای غیر رشتهای در DataAnnotations:** پیام «مقدار باید رشته باشد» که پیشتر هاردکد انگلیسی بود، حالا مثل سایر پیامها از سیستم محلیسازی (رزولور DI یا رجیستری استاتیک) عبور میکند.
+* **لینک Keep a Changelog:** نشانی سند از نسخهٔ `fa-IR` به `fa` اصلاح شد.
 
 ## [1.1.0] - 2026-08-10
 

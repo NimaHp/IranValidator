@@ -13,9 +13,11 @@
     <AnalysisLevel>latest-Recommended</AnalysisLevel>
     <Deterministic>true</Deterministic>
 
-    <!-- SourceLink & Symbols -->
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <!-- SourceLink & Symbols. ContinuousIntegrationBuild only on CI (GitHub
+         Actions sets CI=true): local builds keep normal PDBs and don't embed
+         untracked sources. -->
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+    <EmbedUntrackedSources Condition="'$(CI)' == 'true'">true</EmbedUntrackedSources>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -27,7 +29,7 @@
        overrides the version from the git tag (see release.yml). -->
   <PropertyGroup>
     <Authors>IranValidator Contributors</Authors>
-    <VersionPrefix>1.1.0</VersionPrefix>
+    <VersionPrefix>1.2.0</VersionPrefix>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/NimaHp/IranValidator</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>

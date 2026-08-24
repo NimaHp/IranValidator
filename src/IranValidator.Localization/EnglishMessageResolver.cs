@@ -26,6 +26,7 @@ public sealed class EnglishMessageResolver : IValidationMessageResolver
             ValidationErrorCode.InvalidAreaCode => $"{name} has an invalid area code.",
             ValidationErrorCode.UnsupportedIssuer => $"{name} is not issued by an Iranian bank.",
             ValidationErrorCode.ValueTooLarge => $"{name} is too long.",
+            ValidationErrorCode.InvalidType => $"{name} must be a string.",
             _ => $"{name} is not valid."
         };
     }

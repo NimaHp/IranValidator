@@ -1,5 +1,6 @@
 using System.Globalization;
 using IranValidator.Core;
+using IranValidator.Core.Results;
 using IranValidator.Localization;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
@@ -27,7 +28,15 @@ public abstract class IranValidationAttribute : ValidationAttribute
             return ValidationResult.Success;
 
         if (value is not string str)
-            return new ValidationResult("The value must be a string.");
+        {
+            var displayNameForType = validationContext?.DisplayName ?? "The field";
+            var resolverForType = validationContext?.GetService(typeof(IValidationMessageResolver)) as IValidationMessageResolver;
+
+            return new ValidationResult(
+                resolverForType is not null
+                    ? resolverForType.GetMessage(ValidationErrorCode.InvalidType, displayNameForType, CultureInfo.CurrentUICulture)
+                    : IranDataAnnotationsLocalization.GetMessage(ValidationErrorCode.InvalidType, displayNameForType));
+        }
 
         var result = Validator.Validate(str);
         if (result.Success)

@@ -1,10 +1,23 @@
-# Changelog
+﻿# Changelog
 
 **English** | [فارسی](CHANGELOG.md)
 
 This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
+
+## [1.2.0] - 2026-08-24
+
+### Added
+
+* **New `InvalidType` error code:** new `ValidationErrorCode.InvalidType` member; DataAnnotations attributes now produce it for non-string members, with the localized message («باید یک رشته باشد.» / "must be a string.") added to both the Persian and English resolvers.
+
+### Fixed
+
+* **IranValidate filter:** the ProblemDetails `Type` link pointed to RFC 4918 (status 422); it now points to RFC 7231 §6.5.1, matching the actual 400 response.
+* **Local builds vs CI:** `ContinuousIntegrationBuild` (and with it `EmbedUntrackedSources`) is no longer set unconditionally — it applies only on CI (`CI=true`); local builds get normal PDBs and SourceLink stays release-only.
+* **Non-string messages in DataAnnotations:** the previously hard-coded English "value must be a string" message is now resolved through the localization system (DI resolver or static registry) like every other message.
+* **Keep a Changelog link:** the Persian changelog URL was corrected from the `fa-IR` to the `fa` version.
 
 ## [1.1.0] - 2026-08-10
 

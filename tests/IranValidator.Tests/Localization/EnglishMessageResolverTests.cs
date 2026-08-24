@@ -21,6 +21,7 @@ public class EnglishMessageResolverTests
     [InlineData(ValidationErrorCode.InvalidAreaCode, "has an invalid area code")]
     [InlineData(ValidationErrorCode.UnsupportedIssuer, "is not issued by an Iranian bank")]
     [InlineData(ValidationErrorCode.ValueTooLarge, "is too long")]
+    [InlineData(ValidationErrorCode.InvalidType, "must be a string")]
     public void GetMessage_WithPropertyName_ReturnsFormattedMessage(ValidationErrorCode code, string expectedSuffix)
     {
         var msg = _resolver.GetMessage(code, "Mobile", null);
