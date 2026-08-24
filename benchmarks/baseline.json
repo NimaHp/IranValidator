@@ -1,178 +1,178 @@
 {
   "MobileGeneratedRegex": {
     "alloc": 0,
-    "ns": 19.82
+    "ns": 20.07
   },
   "MobileRegexCompiled": {
     "alloc": 0,
-    "ns": 25.26
+    "ns": 27.2
   },
   "MobileSpanValidator": {
     "alloc": 0,
-    "ns": 26.07
+    "ns": 22.53
   },
   "PostalGeneratedRegex": {
     "alloc": 0,
-    "ns": 19.66
+    "ns": 20.23
   },
   "PostalRegexCompiled": {
     "alloc": 0,
-    "ns": 25.41
+    "ns": 26.31
   },
   "PostalSpanValidator": {
     "alloc": 0,
-    "ns": 13.66
+    "ns": 11.89
   },
   "ValidateCardNumberDntPersianUtils": {
     "alloc": 0,
-    "ns": 342.7
+    "ns": 348.81
   },
   "ValidateCardNumberIranValidator": {
     "alloc": 0,
-    "ns": 48.2
+    "ns": 42.39
   },
   "ValidateCardNumberPersianPlus": {
-    "alloc": 232,
-    "ns": 423.9
+    "alloc": 0,
+    "ns": 453.03
   },
   "ValidateCardNumberSpan": {
     "alloc": 56,
-    "ns": 186.29
+    "ns": 199.88
   },
   "ValidateCardNumberString": {
     "alloc": 0,
-    "ns": 48.12
+    "ns": 42.43
   },
   "ValidateCompanyIdDntPersianUtils": {
-    "alloc": 0,
-    "ns": 140.25
+    "alloc": 192,
+    "ns": 125.73
   },
   "ValidateCompanyIdIranValidator": {
     "alloc": 0,
-    "ns": 26.27
+    "ns": 25.47
   },
   "ValidateCompanyIdPersianPlus": {
-    "alloc": 5046,
-    "ns": 294.98
+    "alloc": 136,
+    "ns": 282.66
   },
   "ValidateCompanyIdSpan": {
     "alloc": 48,
-    "ns": 151.09
+    "ns": 160.22
   },
   "ValidateCompanyIdString": {
     "alloc": 0,
-    "ns": 26.34
+    "ns": 25.43
   },
   "ValidateEconomicCodeSpan": {
     "alloc": 48,
-    "ns": 155.73
+    "ns": 160.36
   },
   "ValidateEconomicCodeString": {
     "alloc": 0,
-    "ns": 29.97
+    "ns": 27.06
   },
   "ValidateIbanDntPersianUtils": {
-    "alloc": 160,
-    "ns": 210.12
+    "alloc": 0,
+    "ns": 201.12
   },
   "ValidateIbanIranValidator": {
     "alloc": 0,
-    "ns": 148.78
+    "ns": 131.51
   },
   "ValidateIbanPersianPlus": {
     "alloc": 0,
-    "ns": 298.52
+    "ns": 343.45
   },
   "ValidateIbanSpan": {
     "alloc": 80,
-    "ns": 337.64
+    "ns": 344.26
   },
   "ValidateIbanString": {
     "alloc": 0,
-    "ns": 149.96
+    "ns": 131.32
   },
   "ValidateMobileDntPersianUtils": {
     "alloc": 0,
-    "ns": 117.56
+    "ns": 125.57
   },
   "ValidateMobileIranValidator": {
     "alloc": 0,
-    "ns": 25.91
+    "ns": 22.46
   },
   "ValidateMobilePersianPlus": {
     "alloc": 0,
-    "ns": 88.5
+    "ns": 96.2
   },
   "ValidateMobileSpan": {
     "alloc": 48,
-    "ns": 151.21
+    "ns": 155.66
   },
   "ValidateMobileString": {
     "alloc": 0,
-    "ns": 26.16
+    "ns": 23.44
   },
   "ValidateNationalCodeDntPersianUtils": {
-    "alloc": 148,
-    "ns": 116.92
+    "alloc": 192,
+    "ns": 114.13
   },
   "ValidateNationalCodeIranValidator": {
     "alloc": 0,
-    "ns": 26.31
+    "ns": 23.16
   },
   "ValidateNationalCodePersianPlus": {
     "alloc": 0,
-    "ns": 148.86
+    "ns": 154.37
   },
   "ValidateNationalCodeSpan": {
     "alloc": 48,
-    "ns": 147.04
+    "ns": 151.59
   },
   "ValidateNationalCodeString": {
     "alloc": 0,
-    "ns": 26.18
+    "ns": 23.1
   },
   "ValidatePassportSpan": {
     "alloc": 40,
-    "ns": 137.44
+    "ns": 148.75
   },
   "ValidatePassportString": {
     "alloc": 0,
-    "ns": 16.86
+    "ns": 14.76
   },
   "ValidatePostalCodeDntPersianUtils": {
-    "alloc": 0,
-    "ns": 113.49
+    "alloc": 96,
+    "ns": 109.01
   },
   "ValidatePostalCodeIranValidator": {
     "alloc": 0,
-    "ns": 13.54
+    "ns": 11.89
   },
   "ValidatePostalCodePersianPlus": {
     "alloc": 0,
-    "ns": 66.67
+    "ns": 69.57
   },
   "ValidatePostalCodeSpan": {
     "alloc": 48,
-    "ns": 136.27
+    "ns": 138.63
   },
   "ValidatePostalCodeString": {
     "alloc": 0,
-    "ns": 13.38
+    "ns": 12.61
   },
   "ValidateTelephoneSpan": {
     "alloc": 48,
-    "ns": 144.7
+    "ns": 151.73
   },
   "ValidateTelephoneString": {
     "alloc": 0,
-    "ns": 23.7
+    "ns": 20.52
   },
   "ValidateVehiclePlateSpan": {
     "alloc": 0,
-    "ns": 121.02
+    "ns": 121.2
   },
   "ValidateVehiclePlateString": {
     "alloc": 0,
-    "ns": 15.17
+    "ns": 13.94
   }
 }

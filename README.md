@@ -185,7 +185,7 @@ IranDataAnnotationsLocalization.Configure(options =>
 
 ## بنچمارک و کارایی
 
-اندازه‌گیری‌شده توسط **BenchmarkDotNet (MediumRun)** روی محیط GitHub Actions (ubuntu-latest) و دات‌نت <!-- bench-dotnet -->`10.0.10`<!-- /bench-dotnet --> (نسخهٔ BenchmarkDotNet: <!-- bench-bdn -->`v0.14.0`<!-- /bench-bdn -->). مقادیر کمتر نشان‌دهنده عملکرد بهتر هستند.
+اندازه‌گیری‌شده توسط **BenchmarkDotNet (MediumRun)** روی محیط GitHub Actions (ubuntu-latest) و دات‌نت <!-- bench-dotnet -->`10.0.11`<!-- /bench-dotnet --> (نسخهٔ BenchmarkDotNet: <!-- bench-bdn -->`v0.14.0`<!-- /bench-bdn -->). مقادیر کمتر نشان‌دهنده عملکرد بهتر هستند.
 
 ### زمان اجرا (نانوثانیه)
 
@@ -195,12 +195,12 @@ IranDataAnnotationsLocalization.Configure(options =>
 <tr><th>اعتبارسنج</th><th>IranValidator</th><th>Persian.Plus</th><th>DNTPersianUtils</th></tr>
 </thead>
 <tbody>
-<tr><td>کد ملی</td><td>26.31</td><td>148.86</td><td>116.92</td></tr>
-<tr><td>شناسه شرکت</td><td>26.27</td><td>294.98</td><td>140.25</td></tr>
-<tr><td>موبایل</td><td>25.91</td><td>88.50</td><td>117.56</td></tr>
-<tr><td>کد پستی</td><td>13.54</td><td>66.67</td><td>113.49</td></tr>
-<tr><td>کارت بانکی</td><td>48.20</td><td>423.90</td><td>342.70</td></tr>
-<tr><td>شبا</td><td>148.78</td><td>298.52</td><td>210.12</td></tr>
+<tr><td>کد ملی</td><td>23.16</td><td>154.36</td><td>114.13</td></tr>
+<tr><td>شناسه شرکت</td><td>24.07</td><td>284.37</td><td>132.12</td></tr>
+<tr><td>موبایل</td><td>22.44</td><td>93.63</td><td>125.57</td></tr>
+<tr><td>کد پستی</td><td>11.89</td><td>68.89</td><td>108.38</td></tr>
+<tr><td>کارت بانکی</td><td>41.97</td><td>457.11</td><td>348.81</td></tr>
+<tr><td>شبا</td><td>131.94</td><td>343.15</td><td>201.12</td></tr>
 </tbody>
 </table>
 <!-- /bench-table:summary-time -->
@@ -213,12 +213,12 @@ IranDataAnnotationsLocalization.Configure(options =>
 <tr><th>اعتبارسنج</th><th>IranValidator</th><th>Persian.Plus</th><th>DNTPersianUtils</th></tr>
 </thead>
 <tbody>
-<tr><td>کد ملی</td><td>0</td><td>0</td><td>148</td></tr>
-<tr><td>شناسه شرکت</td><td>0</td><td>5046</td><td>0</td></tr>
+<tr><td>کد ملی</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>شناسه شرکت</td><td>0</td><td>136</td><td>192</td></tr>
 <tr><td>موبایل</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>کد پستی</td><td>0</td><td>0</td><td>0</td></tr>
-<tr><td>کارت بانکی</td><td>0</td><td>232</td><td>0</td></tr>
-<tr><td>شبا</td><td>0</td><td>0</td><td>160</td></tr>
+<tr><td>کد پستی</td><td>0</td><td>0</td><td>89</td></tr>
+<tr><td>کارت بانکی</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>شبا</td><td>0</td><td>0</td><td>0</td></tr>
 </tbody>
 </table>
 <!-- /bench-table:summary-alloc -->
