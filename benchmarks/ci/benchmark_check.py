@@ -10,23 +10,30 @@ Input handling
 Benchmark allocation/time measurements are inherently noisy on shared
 GitHub-hosted runners: even with zero code changes a method can flap
 between 0 B and 40 B and occasionally spike to several KB. To make the
-gate robust every config uses the *median* across multiple independent
+gate robust every config uses the aggregate across multiple independent
 runs of the same commit rather than trusting any single run.
 
 Each of the subcommands below accepts one or more log files as positional
-arguments. Values are aggregated per method with the median across logs.
+arguments. Values are aggregated per method across logs:
 
-  check  <log...> <baseline.json>   compare median of logs against a baseline.
+  - time (ns): median across runs.
+  - alloc (B): minimum across runs. For zero-alloc validators the true
+    value is deterministic (0 or a fixed small constant); any extra
+    allocation is runner noise attributed to the wrong frame by BDN's
+    MemoryDiagnoser. Taking the minimum discards spikes while preserving
+    a genuine regression (all runs would then allocate).
+
+  check  <log...> <baseline.json>   compare aggregates of logs against a baseline.
                                      Exit code 1 on a genuine regression.
                                      If the baseline is missing/empty it is
                                      created from this batch (first run) and
                                      the check passes.
-  update <log...> <baseline.json>   (re)write baseline from the median of logs.
+  update <log...> <baseline.json>   (re)write baseline from the aggregates of logs.
 
 Thresholds
 ----------
   time:   fail if median > baseline_mean * 1.5
-  alloc:  fail if median allocated > baseline_allocated + TOLERANCE where
+  alloc:  fail if min allocated > baseline_allocated + TOLERANCE where
 
           TOLERANCE = max(ALLOC_FLOOR_BYTES, baseline_allocated * ALLOC_PCT)
 
@@ -93,11 +100,14 @@ def parse_log(path):
 
 
 def parse_logs(paths):
-    """Parse each log and aggregate every method across runs by median.
+    """Parse each log and aggregate every method across runs.
 
-    Returns {method: {"ns": median_ns, "alloc": median_alloc}}. Methods
-    missing from a log are ignored for that log (different runs may omit a
-    benchmark only when it failed to execute there).
+    time is aggregated by median, alloc by minimum (see "Input handling"
+    in the docstring for the rationale). Methods missing from a log are
+    ignored for that log (different runs may omit a benchmark only when it
+    failed to execute there).
+
+    Returns {method: {"ns": median_ns, "alloc": min_alloc}}.
     """
     runs = []
     for path in paths:
@@ -114,7 +124,7 @@ def parse_logs(paths):
         alloc = [r["alloc"] for r in rows]
         aggregated[method] = {
             "ns": statistics.median(ns),
-            "alloc": int(round(statistics.median(alloc))),
+            "alloc": min(alloc),
         }
     return aggregated
 
@@ -150,7 +160,7 @@ def check(log_paths, baseline_path):
         write_baseline(baseline_path, results)
         print(
             f"Baseline created at {baseline_path} with {len(results)} benchmarks "
-            f"(median of {len(log_paths)} run(s), first run)."
+            f"(aggregated over {len(log_paths)} run(s): time=median, alloc=min; first run)."
         )
         return 0
 
@@ -186,7 +196,7 @@ def check(log_paths, baseline_path):
         else:
             failures.append(violation)
 
-    print(f"Compared {len(results)} benchmarks (median of {len(log_paths)} run(s)) "
+    print(f"Compared {len(results)} benchmarks (aggregated over {len(log_paths)} run(s): time=median, alloc=min) "
           f"against {len(baseline)} baselines.")
     if new_benchmarks:
         print(f"New benchmarks (not failing): {', '.join(new_benchmarks)}")
@@ -208,8 +218,8 @@ def update(log_paths, baseline_path):
         print("ERROR: no benchmark rows parsed from logs.")
         return 2
     write_baseline(baseline_path, results)
-    print(f"Baseline updated: {len(results)} benchmarks (median of {len(log_paths)} "
-          f"run(s)) -> {baseline_path}")
+    print(f"Baseline updated: {len(results)} benchmarks (aggregated over {len(log_paths)} "
+          f"run(s): time=median, alloc=min) -> {baseline_path}")
     return 0
 
 
