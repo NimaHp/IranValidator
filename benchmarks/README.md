@@ -18,7 +18,7 @@
 
 * **سخت‌افزار اجرای آزمون:** سیستم GitHub Actions (محیط ubuntu-latest — شامل 2vCPU / 7GB RAM) · **دات‌نت:** <!-- bench-dotnet -->`10.0.11`<!-- /bench-dotnet --> · **ابزار:** <!-- bench-bdn -->`v0.14.0`<!-- /bench-bdn -->
 * **پروفایل اجرای بنچمارک:** MediumRun (۱۵ تکرار، ۱۰ اجرای اولیه، ۲ اجرای نهایی) همراه با MemoryDiagnoser.
-* **تاریخ سنجش:** <!-- bench-date -->`2026-08-18`<!-- /bench-date -->
+* **تاریخ سنجش:** <!-- bench-date -->`2026-09-05`<!-- /bench-date -->
 * **برابری شرایط آزمون:** تمامی ورودی‌ها کاملاً معتبر بوده و صحت آن‌ها در هر سه کتابخانه تایید شده است.
 * **تفاوت در نوع خروجی:** کتابخانه‌های دیگر صرفاً یک bool برمی‌گردانند، در حالی که IranValidator خروجی ساختاریافته ValidationResult را بدون تخصیص حافظه ارائه می‌دهد.
 
@@ -43,25 +43,25 @@
 </thead>
 <tbody>
 <tr><td>ValidateNationalCodeString</td><td>23.32 ns</td><td>0 B</td></tr>
-<tr><td>ValidateNationalCodeSpan</td><td>151.10 ns</td><td>48 B</td></tr>
-<tr><td>ValidateCompanyIdString</td><td>25.42 ns</td><td>0 B</td></tr>
-<tr><td>ValidateCompanyIdSpan</td><td>160.22 ns</td><td>48 B</td></tr>
-<tr><td>ValidateEconomicCodeString</td><td>26.80 ns</td><td>0 B</td></tr>
-<tr><td>ValidateEconomicCodeSpan</td><td>160.36 ns</td><td>48 B</td></tr>
-<tr><td>ValidateMobileString</td><td>29.39 ns</td><td>0 B</td></tr>
-<tr><td>ValidateMobileSpan</td><td>154.60 ns</td><td>48 B</td></tr>
-<tr><td>ValidateTelephoneString</td><td>24.32 ns</td><td>0 B</td></tr>
-<tr><td>ValidateTelephoneSpan</td><td>151.73 ns</td><td>48 B</td></tr>
-<tr><td>ValidatePostalCodeString</td><td>11.88 ns</td><td>0 B</td></tr>
-<tr><td>ValidatePostalCodeSpan</td><td>136.83 ns</td><td>48 B</td></tr>
-<tr><td>ValidateCardNumberString</td><td>43.22 ns</td><td>0 B</td></tr>
-<tr><td>ValidateCardNumberSpan</td><td>199.88 ns</td><td>56 B</td></tr>
-<tr><td>ValidatePassportString</td><td>14.76 ns</td><td>0 B</td></tr>
-<tr><td>ValidatePassportSpan</td><td>145.34 ns</td><td>40 B</td></tr>
-<tr><td>ValidateVehiclePlateString</td><td>13.21 ns</td><td>0 B</td></tr>
-<tr><td>ValidateVehiclePlateSpan</td><td>121.97 ns</td><td>0 B</td></tr>
-<tr><td>ValidateIbanString</td><td>131.20 ns</td><td>0 B</td></tr>
-<tr><td>ValidateIbanSpan</td><td>345.87 ns</td><td>80 B</td></tr>
+<tr><td>ValidateNationalCodeSpan</td><td>148.33 ns</td><td>48 B</td></tr>
+<tr><td>ValidateCompanyIdString</td><td>24.10 ns</td><td>0 B</td></tr>
+<tr><td>ValidateCompanyIdSpan</td><td>153.23 ns</td><td>42 B</td></tr>
+<tr><td>ValidateEconomicCodeString</td><td>27.05 ns</td><td>0 B</td></tr>
+<tr><td>ValidateEconomicCodeSpan</td><td>158.42 ns</td><td>40 B</td></tr>
+<tr><td>ValidateMobileString</td><td>23.04 ns</td><td>0 B</td></tr>
+<tr><td>ValidateMobileSpan</td><td>155.82 ns</td><td>48 B</td></tr>
+<tr><td>ValidateTelephoneString</td><td>20.49 ns</td><td>0 B</td></tr>
+<tr><td>ValidateTelephoneSpan</td><td>152.34 ns</td><td>40 B</td></tr>
+<tr><td>ValidatePostalCodeString</td><td>12.60 ns</td><td>0 B</td></tr>
+<tr><td>ValidatePostalCodeSpan</td><td>137.46 ns</td><td>11257 B</td></tr>
+<tr><td>ValidateCardNumberString</td><td>41.70 ns</td><td>0 B</td></tr>
+<tr><td>ValidateCardNumberSpan</td><td>193.54 ns</td><td>0 B</td></tr>
+<tr><td>ValidatePassportString</td><td>14.75 ns</td><td>0 B</td></tr>
+<tr><td>ValidatePassportSpan</td><td>148.29 ns</td><td>40 B</td></tr>
+<tr><td>ValidateVehiclePlateString</td><td>13.12 ns</td><td>0 B</td></tr>
+<tr><td>ValidateVehiclePlateSpan</td><td>118.40 ns</td><td>0 B</td></tr>
+<tr><td>ValidateIbanString</td><td>132.23 ns</td><td>0 B</td></tr>
+<tr><td>ValidateIbanSpan</td><td>341.84 ns</td><td>80 B</td></tr>
 </tbody>
 </table>
 <!-- /bench-table:overloads -->
@@ -79,24 +79,24 @@
 <tr><th>متد</th><th>میانگین زمان اجرا</th><th>حافظه تخصیص‌یافته</th></tr>
 </thead>
 <tbody>
-<tr><td>ValidateNationalCodeIranValidator</td><td>23.16 ns</td><td>0 B</td></tr>
-<tr><td>ValidateNationalCodePersianPlus</td><td>154.36 ns</td><td>0 B</td></tr>
-<tr><td>ValidateNationalCodeDntPersianUtils</td><td>114.13 ns</td><td>0 B</td></tr>
-<tr><td>ValidateCompanyIdIranValidator</td><td>24.07 ns</td><td>0 B</td></tr>
-<tr><td>ValidateCompanyIdPersianPlus</td><td>284.37 ns</td><td>136 B</td></tr>
-<tr><td>ValidateCompanyIdDntPersianUtils</td><td>132.12 ns</td><td>192 B</td></tr>
-<tr><td>ValidateMobileIranValidator</td><td>22.44 ns</td><td>0 B</td></tr>
-<tr><td>ValidateMobilePersianPlus</td><td>93.63 ns</td><td>0 B</td></tr>
-<tr><td>ValidateMobileDntPersianUtils</td><td>125.57 ns</td><td>0 B</td></tr>
-<tr><td>ValidatePostalCodeIranValidator</td><td>11.89 ns</td><td>0 B</td></tr>
-<tr><td>ValidatePostalCodePersianPlus</td><td>68.89 ns</td><td>0 B</td></tr>
-<tr><td>ValidatePostalCodeDntPersianUtils</td><td>108.38 ns</td><td>89 B</td></tr>
-<tr><td>ValidateCardNumberIranValidator</td><td>41.97 ns</td><td>0 B</td></tr>
-<tr><td>ValidateCardNumberPersianPlus</td><td>457.11 ns</td><td>0 B</td></tr>
-<tr><td>ValidateCardNumberDntPersianUtils</td><td>348.81 ns</td><td>0 B</td></tr>
-<tr><td>ValidateIbanIranValidator</td><td>131.94 ns</td><td>0 B</td></tr>
-<tr><td>ValidateIbanPersianPlus</td><td>343.15 ns</td><td>0 B</td></tr>
-<tr><td>ValidateIbanDntPersianUtils</td><td>201.12 ns</td><td>0 B</td></tr>
+<tr><td>ValidateNationalCodeIranValidator</td><td>23.07 ns</td><td>0 B</td></tr>
+<tr><td>ValidateNationalCodePersianPlus</td><td>158.17 ns</td><td>0 B</td></tr>
+<tr><td>ValidateNationalCodeDntPersianUtils</td><td>111.42 ns</td><td>192 B</td></tr>
+<tr><td>ValidateCompanyIdIranValidator</td><td>24.15 ns</td><td>0 B</td></tr>
+<tr><td>ValidateCompanyIdPersianPlus</td><td>273.60 ns</td><td>136 B</td></tr>
+<tr><td>ValidateCompanyIdDntPersianUtils</td><td>122.48 ns</td><td>192 B</td></tr>
+<tr><td>ValidateMobileIranValidator</td><td>23.67 ns</td><td>0 B</td></tr>
+<tr><td>ValidateMobilePersianPlus</td><td>94.90 ns</td><td>0 B</td></tr>
+<tr><td>ValidateMobileDntPersianUtils</td><td>121.77 ns</td><td>96 B</td></tr>
+<tr><td>ValidatePostalCodeIranValidator</td><td>12.58 ns</td><td>0 B</td></tr>
+<tr><td>ValidatePostalCodePersianPlus</td><td>69.81 ns</td><td>0 B</td></tr>
+<tr><td>ValidatePostalCodeDntPersianUtils</td><td>105.95 ns</td><td>0 B</td></tr>
+<tr><td>ValidateCardNumberIranValidator</td><td>41.67 ns</td><td>0 B</td></tr>
+<tr><td>ValidateCardNumberPersianPlus</td><td>428.52 ns</td><td>0 B</td></tr>
+<tr><td>ValidateCardNumberDntPersianUtils</td><td>358.53 ns</td><td>344 B</td></tr>
+<tr><td>ValidateIbanIranValidator</td><td>132.04 ns</td><td>0 B</td></tr>
+<tr><td>ValidateIbanPersianPlus</td><td>337.69 ns</td><td>0 B</td></tr>
+<tr><td>ValidateIbanDntPersianUtils</td><td>194.39 ns</td><td>9037 B</td></tr>
 </tbody>
 </table>
 <!-- /bench-table:vs-rivals -->
@@ -116,12 +116,12 @@
 <tr><th>پیاده‌سازی</th><th>میانگین</th></tr>
 </thead>
 <tbody>
-<tr><td>پردازش مستقیم روی اسپن (موبایل)</td><td>22.53 ns</td></tr>
-<tr><td>کامپایل‌شده با رجکس</td><td>27.01 ns</td></tr>
-<tr><td>GeneratedRegex</td><td>20.34 ns</td></tr>
-<tr><td>پردازش مستقیم روی اسپن (کدپستی)</td><td>11.89 ns</td></tr>
-<tr><td>کامپایل‌شده با رجکس</td><td>26.34 ns</td></tr>
-<tr><td>GeneratedRegex</td><td>20.42 ns</td></tr>
+<tr><td>پردازش مستقیم روی اسپن (موبایل)</td><td>23.25 ns</td></tr>
+<tr><td>کامپایل‌شده با رجکس</td><td>26.85 ns</td></tr>
+<tr><td>GeneratedRegex</td><td>19.99 ns</td></tr>
+<tr><td>پردازش مستقیم روی اسپن (کدپستی)</td><td>12.59 ns</td></tr>
+<tr><td>کامپایل‌شده با رجکس</td><td>26.24 ns</td></tr>
+<tr><td>GeneratedRegex</td><td>19.72 ns</td></tr>
 </tbody>
 </table>
 <!-- /bench-table:regex -->
