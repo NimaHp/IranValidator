@@ -63,6 +63,7 @@ jobs:
         run: python3 benchmarks/ci/update_readme.py /tmp/benchmark_1.log
 
       - name: Commit benchmark artifacts if changed
+        if: github.ref == 'refs/heads/main'
         run: |
           if git status --porcelain -- benchmarks/ README.md README.en.md | grep -q .; then
             git config user.name "github-actions[bot]"
