@@ -131,12 +131,12 @@ Measured using **BenchmarkDotNet (MediumRun)** on GitHub Actions (ubuntu-latest)
 <!-- bench-table:summary-time -->
 | Validator | IranValidator | Persian.Plus | DNTPersianUtils |
 | :--- | :--- | :--- | :--- |
-| National Code | 23.16 | 154.36 | 114.13 |
-| Company ID | 24.07 | 284.37 | 132.12 |
-| Mobile | 22.44 | 93.63 | 125.57 |
-| Postal Code | 11.89 | 68.89 | 108.38 |
-| Card Number | 41.97 | 457.11 | 348.81 |
-| IBAN | 131.94 | 343.15 | 201.12 |
+| National Code | 23.07 | 158.17 | 111.42 |
+| Company ID | 24.15 | 273.60 | 122.48 |
+| Mobile | 23.67 | 94.90 | 121.77 |
+| Postal Code | 12.58 | 69.81 | 105.95 |
+| Card Number | 41.67 | 428.52 | 358.53 |
+| IBAN | 132.04 | 337.69 | 194.39 |
 <!-- /bench-table:summary-time -->
 
 ### Memory Allocation (Bytes)
@@ -144,12 +144,12 @@ Measured using **BenchmarkDotNet (MediumRun)** on GitHub Actions (ubuntu-latest)
 <!-- bench-table:summary-alloc -->
 | Validator | IranValidator | Persian.Plus | DNTPersianUtils |
 | :--- | :--- | :--- | :--- |
-| National Code | 0 | 0 | 0 |
+| National Code | 0 | 0 | 192 |
 | Company ID | 0 | 136 | 192 |
-| Mobile | 0 | 0 | 0 |
-| Postal Code | 0 | 0 | 89 |
-| Card Number | 0 | 0 | 0 |
-| IBAN | 0 | 0 | 0 |
+| Mobile | 0 | 0 | 96 |
+| Postal Code | 0 | 0 | 0 |
+| Card Number | 0 | 0 | 344 |
+| IBAN | 0 | 0 | 9037 |
 <!-- /bench-table:summary-alloc -->
 
 **Key Takeaways:**

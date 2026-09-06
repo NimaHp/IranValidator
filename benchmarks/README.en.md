@@ -18,7 +18,7 @@ Automated benchmark checks run monthly in CI to detect potential performance reg
 
 * **Environment:** GitHub Actions runner (ubuntu-latest — 2 vCPU / 7 GB RAM) · **.NET SDK:** <!-- bench-dotnet -->`10.0.11`<!-- /bench-dotnet --> · **BenchmarkDotNet:** <!-- bench-bdn -->`v0.14.0`<!-- /bench-bdn -->
 * **Job Profile:** MediumRun (15 iterations, 10 warmups, 2 launches) with MemoryDiagnoser enabled.
-* **Execution Date:** <!-- bench-date -->`2026-08-18`<!-- /bench-date -->
+* **Execution Date:** <!-- bench-date -->`2026-09-05`<!-- /bench-date -->
 * **Validation Consistency:** All test cases use valid inputs verified across all libraries to ensure fair execution comparison.
 * **Return Type Distinction:** Competitor libraries return a simple bool, whereas IranValidator returns a structured ValidationResult struct without incurring memory allocations.
 
@@ -36,25 +36,25 @@ Automated benchmark checks run monthly in CI to detect potential performance reg
 | Method | Mean | Allocated |
 |---|---|---|
 | ValidateNationalCodeString | 23.32 ns | 0 B |
-| ValidateNationalCodeSpan | 151.10 ns | 48 B |
-| ValidateCompanyIdString | 25.42 ns | 0 B |
-| ValidateCompanyIdSpan | 160.22 ns | 48 B |
-| ValidateEconomicCodeString | 26.80 ns | 0 B |
-| ValidateEconomicCodeSpan | 160.36 ns | 48 B |
-| ValidateMobileString | 29.39 ns | 0 B |
-| ValidateMobileSpan | 154.60 ns | 48 B |
-| ValidateTelephoneString | 24.32 ns | 0 B |
-| ValidateTelephoneSpan | 151.73 ns | 48 B |
-| ValidatePostalCodeString | 11.88 ns | 0 B |
-| ValidatePostalCodeSpan | 136.83 ns | 48 B |
-| ValidateCardNumberString | 43.22 ns | 0 B |
-| ValidateCardNumberSpan | 199.88 ns | 56 B |
-| ValidatePassportString | 14.76 ns | 0 B |
-| ValidatePassportSpan | 145.34 ns | 40 B |
-| ValidateVehiclePlateString | 13.21 ns | 0 B |
-| ValidateVehiclePlateSpan | 121.97 ns | 0 B |
-| ValidateIbanString | 131.20 ns | 0 B |
-| ValidateIbanSpan | 345.87 ns | 80 B |
+| ValidateNationalCodeSpan | 148.33 ns | 48 B |
+| ValidateCompanyIdString | 24.10 ns | 0 B |
+| ValidateCompanyIdSpan | 153.23 ns | 42 B |
+| ValidateEconomicCodeString | 27.05 ns | 0 B |
+| ValidateEconomicCodeSpan | 158.42 ns | 40 B |
+| ValidateMobileString | 23.04 ns | 0 B |
+| ValidateMobileSpan | 155.82 ns | 48 B |
+| ValidateTelephoneString | 20.49 ns | 0 B |
+| ValidateTelephoneSpan | 152.34 ns | 40 B |
+| ValidatePostalCodeString | 12.60 ns | 0 B |
+| ValidatePostalCodeSpan | 137.46 ns | 11257 B |
+| ValidateCardNumberString | 41.70 ns | 0 B |
+| ValidateCardNumberSpan | 193.54 ns | 0 B |
+| ValidatePassportString | 14.75 ns | 0 B |
+| ValidatePassportSpan | 148.29 ns | 40 B |
+| ValidateVehiclePlateString | 13.12 ns | 0 B |
+| ValidateVehiclePlateSpan | 118.40 ns | 0 B |
+| ValidateIbanString | 132.23 ns | 0 B |
+| ValidateIbanSpan | 341.84 ns | 80 B |
 <!-- /bench-table:overloads --> |  |  |
 
 **Insights:**
@@ -67,24 +67,24 @@ Automated benchmark checks run monthly in CI to detect potential performance reg
 <!-- bench-table:vs-rivals -->
 | Method | Mean | Allocated |
 |---|---|---|
-| ValidateNationalCodeIranValidator | 23.16 ns | 0 B |
-| ValidateNationalCodePersianPlus | 154.36 ns | 0 B |
-| ValidateNationalCodeDntPersianUtils | 114.13 ns | 0 B |
-| ValidateCompanyIdIranValidator | 24.07 ns | 0 B |
-| ValidateCompanyIdPersianPlus | 284.37 ns | 136 B |
-| ValidateCompanyIdDntPersianUtils | 132.12 ns | 192 B |
-| ValidateMobileIranValidator | 22.44 ns | 0 B |
-| ValidateMobilePersianPlus | 93.63 ns | 0 B |
-| ValidateMobileDntPersianUtils | 125.57 ns | 0 B |
-| ValidatePostalCodeIranValidator | 11.89 ns | 0 B |
-| ValidatePostalCodePersianPlus | 68.89 ns | 0 B |
-| ValidatePostalCodeDntPersianUtils | 108.38 ns | 89 B |
-| ValidateCardNumberIranValidator | 41.97 ns | 0 B |
-| ValidateCardNumberPersianPlus | 457.11 ns | 0 B |
-| ValidateCardNumberDntPersianUtils | 348.81 ns | 0 B |
-| ValidateIbanIranValidator | 131.94 ns | 0 B |
-| ValidateIbanPersianPlus | 343.15 ns | 0 B |
-| ValidateIbanDntPersianUtils | 201.12 ns | 0 B |
+| ValidateNationalCodeIranValidator | 23.07 ns | 0 B |
+| ValidateNationalCodePersianPlus | 158.17 ns | 0 B |
+| ValidateNationalCodeDntPersianUtils | 111.42 ns | 192 B |
+| ValidateCompanyIdIranValidator | 24.15 ns | 0 B |
+| ValidateCompanyIdPersianPlus | 273.60 ns | 136 B |
+| ValidateCompanyIdDntPersianUtils | 122.48 ns | 192 B |
+| ValidateMobileIranValidator | 23.67 ns | 0 B |
+| ValidateMobilePersianPlus | 94.90 ns | 0 B |
+| ValidateMobileDntPersianUtils | 121.77 ns | 96 B |
+| ValidatePostalCodeIranValidator | 12.58 ns | 0 B |
+| ValidatePostalCodePersianPlus | 69.81 ns | 0 B |
+| ValidatePostalCodeDntPersianUtils | 105.95 ns | 0 B |
+| ValidateCardNumberIranValidator | 41.67 ns | 0 B |
+| ValidateCardNumberPersianPlus | 428.52 ns | 0 B |
+| ValidateCardNumberDntPersianUtils | 358.53 ns | 344 B |
+| ValidateIbanIranValidator | 132.04 ns | 0 B |
+| ValidateIbanPersianPlus | 337.69 ns | 0 B |
+| ValidateIbanDntPersianUtils | 194.39 ns | 9037 B |
 <!-- /bench-table:vs-rivals --> |  |  |
 
 **Key Takeaways:**
@@ -99,12 +99,12 @@ Automated benchmark checks run monthly in CI to detect potential performance reg
 <!-- bench-table:regex -->
 | Implementation | Mean |
 |---|---|
-| Hand-rolled span (mobile) | 22.53 ns |
-| `Regex` compiled | 27.01 ns |
-| `GeneratedRegex` | 20.34 ns |
-| Hand-rolled span (postal) | 11.89 ns |
-| `Regex` compiled | 26.34 ns |
-| `GeneratedRegex` | 20.42 ns |
+| Hand-rolled span (mobile) | 23.25 ns |
+| `Regex` compiled | 26.85 ns |
+| `GeneratedRegex` | 19.99 ns |
+| Hand-rolled span (postal) | 12.59 ns |
+| `Regex` compiled | 26.24 ns |
+| `GeneratedRegex` | 19.72 ns |
 <!-- /bench-table:regex --> |  |
 
 Direct span parsing outperforms both .NET 10 compiled and generated regular expressions by **1.6–2.4×** — regex pays per-call startup overhead even with pooled runners.
