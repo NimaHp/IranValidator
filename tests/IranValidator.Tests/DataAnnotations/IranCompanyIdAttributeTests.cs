@@ -7,10 +7,10 @@ namespace IranValidator.Tests.DataAnnotations;
 public class IranCompanyIdAttributeTests
 {
     [Theory]
-    [InlineData("10380284795")]
-    [InlineData("14005124960")]
-    [InlineData("10260353695")]
-    [InlineData("10790116961")]
+    [InlineData("10380284752")]
+    [InlineData("14005124962")]
+    [InlineData("10260353690")]
+    [InlineData("10790116966")]
     public void IsValid_ValidCompanyId_ReturnsSuccess(string companyId)
     {
         var attr = new IranValidator.DataAnnotations.IranCompanyIdAttribute();

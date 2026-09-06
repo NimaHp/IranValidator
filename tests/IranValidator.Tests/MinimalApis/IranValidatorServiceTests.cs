@@ -56,8 +56,8 @@ public class IranValidatorServiceTests
     }
 
     [Theory]
-    [InlineData("10380284795")]
-    [InlineData("14005124960")]
+    [InlineData("10380284752")]
+    [InlineData("14005124962")]
     public void ValidateCompanyId_Valid_ReturnsSuccess(string companyId)
     {
         var result = _service.ValidateCompanyId(companyId);

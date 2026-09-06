@@ -9,6 +9,29 @@ public class PassportValidatorTests
 {
     private readonly PassportValidator _sut = PassportValidator.Instance;
 
+    private static ValidationResult ValidateWithLegacyIfNeeded(string passport)
+    {
+        // Legacy 8-digit passports are disabled by default (AllowLegacy8Digit=false since 1405).
+        // Tests that exercise the deprecated 8-digit format must opt in explicitly.
+        bool isLegacy8 = passport.Length == 8 && passport.All(char.IsDigit);
+        if (!isLegacy8)
+            return PassportValidator.Instance.Validate(passport.AsSpan());
+
+        bool prev = PassportValidator.AllowLegacy8Digit;
+        try
+        {
+            PassportValidator.AllowLegacy8Digit = true;
+            return PassportValidator.Instance.Validate(passport.AsSpan());
+        }
+        finally
+        {
+            PassportValidator.AllowLegacy8Digit = prev;
+        }
+    }
+
+    private static ValidationResult ValidateWithLegacyIfNeeded(ReadOnlySpan<char> passport)
+        => ValidateWithLegacyIfNeeded(passport.ToString());
+
     [Theory]
     [InlineData("P12345678")]   // standard new format - P series
     [InlineData("A12345678")]   // A series
@@ -20,13 +43,13 @@ public class PassportValidatorTests
     [InlineData("Y12345678")]   // Y series
     [InlineData("H12345678")]   // H series (diplomatic)
     [InlineData("F12345678")]   // F series
-    [InlineData("00000000")]    // old format - 8 digits
-    [InlineData("12345678")]    // old format
+    [InlineData("00000000")]    // old format - 8 digits (legacy, requires AllowLegacy8Digit)
+    [InlineData("12345678")]    // old format (legacy)
     [InlineData("p12345678")]   // lowercase letter (should normalize to uppercase)
     [InlineData("a12345678")]   // lowercase letter
     public void Validate_ValidFormats_ReturnsSuccess(string passport)
     {
-        var result = _sut.Validate(passport.AsSpan());
+        var result = ValidateWithLegacyIfNeeded(passport.AsSpan());
         result.Success.Should().BeTrue();
         result.NormalizedValue.Should().NotBeNull();
         result.ErrorCode.Should().Be(ValidationErrorCode.None);
@@ -94,23 +117,32 @@ public class PassportValidatorTests
     [InlineData("12345678")]
     public void Validate_StringOverload_ReturnsSuccess(string value)
     {
-        var result = _sut.Validate(value);
+        var result = ValidateWithLegacyIfNeeded(value);
         result.Success.Should().BeTrue();
     }
 
     [Fact]
     public void Validate_ConcurrentAccess_NoRaceCondition()
     {
-        var passports = new[] { "P12345678", "A12345678", "12345678", "U12345678" };
+        var passports = new[] { "P12345678", "A12345678", "U12345678" };
+        var legacyPassports = new[] { "12345678" };
         var bag = new System.Collections.Concurrent.ConcurrentBag<ValidationResult>();
 
         Parallel.For(0, 100, i =>
         {
-            var result = _sut.Validate(passports[i % passports.Length]);
+            var p = passports[i % passports.Length];
+            var result = PassportValidator.Instance.Validate(p.AsSpan());
             bag.Add(result);
         });
 
         bag.Should().AllSatisfy(r => r.Success.Should().BeTrue());
+
+        // Legacy 8-digit still works when explicitly opted in (separate from concurrent strict path).
+        foreach (var lp in legacyPassports)
+        {
+            var r = ValidateWithLegacyIfNeeded(lp);
+            r.Success.Should().BeTrue();
+        }
     }
 
     private static void ResultShouldBeEmptyError(ValidationResult result)

@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using IranValidator.Core;
 using IranValidator.Core.Normalization;
 using IranValidator.Core.Results;
@@ -28,7 +28,7 @@ public sealed class ValidatorFuzzTests
         "02122345678",          // Telephone
         "6037991234567893",     // CardNumber
         "IR820540102680020817909002", // Iban
-        "10380284795",          // CompanyId
+        "10380284752",          // CompanyId
         "123456789019",         // EconomicCode
         "P12345678",            // Passport (new format)
         "12ب34567",             // VehiclePlate
@@ -172,7 +172,7 @@ public sealed class ValidatorFuzzTests
         "Telephone" => "02122345678",
         "CardNumber" => "6037991234567893",
         "Iban" => "IR820540102680020817909002",
-        "CompanyId" => "10380284795",
+        "CompanyId" => "10380284752",
         "EconomicCode" => "123456789019",
         "Passport" => "P12345678",
         "VehiclePlate" => "12ب34567",

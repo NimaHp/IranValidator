@@ -18,7 +18,7 @@ public class SpanOverloadTests
     public static TheoryData<IStringValidator, string> ValidSamples => new()
     {
         { NationalCodeValidator.Instance, "0010350829" },
-        { CompanyIdValidator.Instance, "10380284795" },
+        { CompanyIdValidator.Instance, "10380284752" },
         { EconomicCodeValidator.Instance, "005033968545" },
         { MobileValidator.Instance, "09121234567" },
         { PostalCodeValidator.Instance, "1145687654" },

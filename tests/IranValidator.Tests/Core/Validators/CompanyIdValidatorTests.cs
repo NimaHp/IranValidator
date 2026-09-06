@@ -9,11 +9,10 @@ public class CompanyIdValidatorTests
     private readonly CompanyIdValidator _sut = CompanyIdValidator.Instance;
 
     [Theory]
-    [InlineData("10380284795")]
-    [InlineData("10380058722")]
-    [InlineData("10260353695")]
-    [InlineData("14005124960")]
-    [InlineData("10790116961")]
+    [InlineData("10380284752")]
+    [InlineData("10380284790")]
+    [InlineData("10380058726")]
+    [InlineData("10260353690")]
     public void Validate_ValidCompanyIds_ReturnsSuccess(string companyId)
     {
         var result = _sut.Validate(companyId);
@@ -53,7 +52,7 @@ public class CompanyIdValidatorTests
     [Fact]
     public void Validate_WithPersianDigits_NormalizesCorrectly()
     {
-        var result = _sut.Validate("۱۰۳۸۰۲۸۴۷۹۵");
+        var result = _sut.Validate("۱۰۳۸۰۲۸۴۷۵۲");
         result.Success.Should().BeTrue();
     }
 

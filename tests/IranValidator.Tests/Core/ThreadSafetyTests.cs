@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 using FluentAssertions;
 using IranValidator.Core;
 using IranValidator.Core.Algorithms;
@@ -27,7 +27,7 @@ public sealed class ValidatorThreadSafetyTests
         yield return new object[] { new ValidatorCase("Telephone", TelephoneValidator.Instance, "02122345678", ["01212345678", "0211234567A", "09112345678", "0211234567"]) };
         yield return new object[] { new ValidatorCase("CardNumber", CardNumberValidator.Instance, "6037991234567893", ["6037991234567890", "603799123456789A", "0000000000000000", "603799123456789"]) };
         yield return new object[] { new ValidatorCase("Iban", IbanValidator.Instance, "IR820540102680020817909002", ["IR820540102680020817909000", "XX820540102680020817909002", "IRAAAAAAAAAAAAAAAAAAAAAAAA", "IR82054010268002081790902"]) };
-        yield return new object[] { new ValidatorCase("CompanyId", CompanyIdValidator.Instance, "10380284795", ["1038028479A", "1038028479", "103802847951"]) };
+        yield return new object[] { new ValidatorCase("CompanyId", CompanyIdValidator.Instance, "10380284752", ["1038028479A", "1038028479", "103802847521"]) };
         yield return new object[] { new ValidatorCase("EconomicCode", EconomicCodeValidator.Instance, "123456789019", ["12345678901A", "000000000000", "12345678901"]) };
         yield return new object[] { new ValidatorCase("Passport", PassportValidator.Instance, "P12345678", ["Z12345678", "P1234567A", "1234567A", "1234567"]) };
         yield return new object[] { new ValidatorCase("VehiclePlate", VehiclePlateValidator.Instance, "12ب34567", ["12@34567", "12ب34A67", "1AB34567", "12B3456"]) };

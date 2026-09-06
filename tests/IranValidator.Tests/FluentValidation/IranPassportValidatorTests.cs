@@ -14,12 +14,27 @@ public class IranPassportValidatorTests
     [Theory]
     [InlineData("P12345678")]
     [InlineData("A12345678")]
-    [InlineData("12345678")]
+    [InlineData("12345678")] // legacy 8-digit — requires AllowLegacy8Digit
     public void IranPassport_ValidValue_Passes(string passport)
     {
-        _validator.RuleFor(x => x.Value).IranPassport();
-        var result = _validator.Validate(new TestModel { Value = passport });
-        result.IsValid.Should().BeTrue();
+        bool isLegacy8 = passport.Length == 8 && passport.All(char.IsDigit);
+        bool prev = false;
+        if (isLegacy8)
+        {
+            prev = IranValidator.Core.Validators.PassportValidator.AllowLegacy8Digit;
+            IranValidator.Core.Validators.PassportValidator.AllowLegacy8Digit = true;
+        }
+        try
+        {
+            _validator.RuleFor(x => x.Value).IranPassport();
+            var result = _validator.Validate(new TestModel { Value = passport });
+            result.IsValid.Should().BeTrue();
+        }
+        finally
+        {
+            if (isLegacy8)
+                IranValidator.Core.Validators.PassportValidator.AllowLegacy8Digit = prev;
+        }
     }
 
     [Theory]

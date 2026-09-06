@@ -9,12 +9,26 @@ public class IranPassportAttributeTests
     [Theory]
     [InlineData("P12345678")]
     [InlineData("A12345678")]
-    [InlineData("12345678")]
     public void IsValid_ValidPassport_ReturnsSuccess(string passport)
     {
         var attr = new IranValidator.DataAnnotations.IranPassportAttribute();
         var result = attr.GetValidationResult(passport, new ValidationContext(new { }));
         result.Should().Be(ValidationResult.Success);
+    }
+
+    [Fact]
+    public void IsValid_Legacy8Digit_RequiresAllowLegacy()
+    {
+        var attr = new IranValidator.DataAnnotations.IranPassportAttribute();
+        // Strict (default) → legacy 8-digit is InvalidFormat
+        attr.GetValidationResult("12345678", new ValidationContext(new { })).Should().NotBe(ValidationResult.Success);
+        bool prev = IranValidator.Core.Validators.PassportValidator.AllowLegacy8Digit;
+        try
+        {
+            IranValidator.Core.Validators.PassportValidator.AllowLegacy8Digit = true;
+            attr.GetValidationResult("12345678", new ValidationContext(new { })).Should().Be(ValidationResult.Success);
+        }
+        finally { IranValidator.Core.Validators.PassportValidator.AllowLegacy8Digit = prev; }
     }
 
     [Theory]

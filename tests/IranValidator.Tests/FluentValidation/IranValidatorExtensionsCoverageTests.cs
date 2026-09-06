@@ -22,7 +22,7 @@ public class IranValidatorExtensionsCoverageTests
         {
             ("NationalCode", r => r.IranNationalCode(), "0010350829", "0000000000"),
             ("CardNumber", r => r.IranCardNumber(), "6037991234567893", "6037991234567892"),
-            ("CompanyId", r => r.IranCompanyId(), "10380284795", "10380284796"),
+            ("CompanyId", r => r.IranCompanyId(), "10380284752", "10380284796"),
             ("EconomicCode", r => r.IranEconomicCode(), "123456789019", "123456789018"),
             ("Mobile", r => r.IranMobile(), "09121234567", "091212345678"),
             ("Passport", r => r.IranPassport(), "P12345678", "P1234567"),

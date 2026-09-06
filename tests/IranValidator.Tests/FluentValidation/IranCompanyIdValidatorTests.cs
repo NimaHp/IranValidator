@@ -12,9 +12,9 @@ public class IranCompanyIdValidatorTests
     private readonly InlineValidator<TestModel> _validator = new();
 
     [Theory]
-    [InlineData("10380284795")]
-    [InlineData("14005124960")]
-    [InlineData("10260353695")]
+    [InlineData("10380284752")]
+    [InlineData("14005124962")]
+    [InlineData("10260353690")]
     public void IranCompanyId_ValidValue_Passes(string companyId)
     {
         _validator.RuleFor(x => x.Value).IranCompanyId();

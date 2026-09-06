@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using IranValidator.Core;
 using IranValidator.Core.Results;
 using IranValidator.Core.Validators;
@@ -63,7 +63,7 @@ public sealed class ValidatorBoundaryTests
 
         // CompanyId (11)
         data.Add(CompanyIdValidator.Instance, "1038028479", ValidationErrorCode.InvalidLength);   // 10
-        data.Add(CompanyIdValidator.Instance, "103802847951", ValidationErrorCode.InvalidLength); // 12
+        data.Add(CompanyIdValidator.Instance, "103802847521", ValidationErrorCode.InvalidLength); // 12
         data.Add(CompanyIdValidator.Instance, "1038028479A", ValidationErrorCode.InvalidCharacters);
 
         // EconomicCode (12)
@@ -72,12 +72,14 @@ public sealed class ValidatorBoundaryTests
         data.Add(EconomicCodeValidator.Instance, "000000000000", ValidationErrorCode.InvalidChecksum); // all-same digit
         data.Add(EconomicCodeValidator.Instance, "12345678901A", ValidationErrorCode.InvalidCharacters);
 
-        // Passport (8 or 9)
+        // Passport (8 or 9) — 8-digit is legacy/deprecated (AllowLegacy8Digit=false): now InvalidFormat
         data.Add(PassportValidator.Instance, "1234567", ValidationErrorCode.InvalidLength);   // 7
         data.Add(PassportValidator.Instance, "P123456789", ValidationErrorCode.InvalidLength); // 10
         data.Add(PassportValidator.Instance, "Z12345678", ValidationErrorCode.InvalidFormat);  // letter not in valid set
         data.Add(PassportValidator.Instance, "P1234567A", ValidationErrorCode.InvalidCharacters);
-        data.Add(PassportValidator.Instance, "1234567A", ValidationErrorCode.InvalidCharacters);
+        data.Add(PassportValidator.Instance, "1234567A", ValidationErrorCode.InvalidFormat); // 8 chars without valid prefix → legacy InvalidFormat (strict)
+        // 8-digit legacy all-digits is now InvalidFormat when AllowLegacy is off (explicit case)
+        data.Add(PassportValidator.Instance, "12345678", ValidationErrorCode.InvalidFormat);
 
         // Iban (26): checksum-valid IBAN with unassigned bank code 999
         data.Add(IbanValidator.Instance, "IR489991234567890123456789", ValidationErrorCode.InvalidBankCode);
@@ -118,11 +120,11 @@ public sealed class ValidatorBoundaryTests
         data.Add(CardNumberValidator.Instance, "۶۰۳۷۹۹۱۲۳۴۵۶۷۸۹۳", "6037991234567893");
         data.Add(IbanValidator.Instance, "IR820540102680020817909002", "IR820540102680020817909002");
         data.Add(IbanValidator.Instance, "ir820540102680020817909002", "IR820540102680020817909002"); // lowercase prefix canonicalized
-        data.Add(CompanyIdValidator.Instance, "10380284795", "10380284795");
+        data.Add(CompanyIdValidator.Instance, "10380284752", "10380284752");
         data.Add(EconomicCodeValidator.Instance, "123456789019", "123456789019");
-        data.Add(PassportValidator.Instance, "12345678", "12345678");           // old format, 8 digits
-        data.Add(PassportValidator.Instance, "P12345678", "P12345678");         // new format
+        data.Add(PassportValidator.Instance, "P12345678", "P12345678");         // new format (current 1405)
         data.Add(PassportValidator.Instance, "p12345678", "P12345678");         // letter uppercased
+        // Note: legacy 8-digit "12345678" is no longer valid by default (AllowLegacy8Digit=false); covered in invalid cases.
         data.Add(VehiclePlateValidator.Instance, "12ب34567", "12ب34567");
         data.Add(VehiclePlateValidator.Instance, "۱۲ب۳۴۵۶۷", "12ب34567");      // Persian digits normalized
 
