@@ -25,7 +25,7 @@ ValidationResult result = validator.Validate("0010350829");
 // result.ErrorCode -> ValidationErrorCode.None on success
 ```
 
-All 10 core validators implement the Singleton pattern (NationalCodeValidator.Instance, MobileValidator.Instance, etc.) and support both string and ReadOnlySpan<char> via IStringValidator. Null and empty values pass evaluation by design (following standard DataAnnotations conventions); use explicit presence rules when input is mandatory.
+All 10 core validators implement the Singleton pattern (NationalCodeValidator.Instance, MobileValidator.Instance, etc.) and support both string and ReadOnlySpan<char> via IStringValidator. Direct Core calls return ValueEmpty for null/empty; DataAnnotations attributes and FluentValidation rules pass null/empty by framework convention — add [Required] or .NotEmpty() when mandatory.
 
 ### Extension Methods
 

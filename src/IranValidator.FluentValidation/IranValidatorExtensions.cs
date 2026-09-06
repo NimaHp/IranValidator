@@ -1,5 +1,6 @@
 using FluentValidation;
 using IranValidator.Core;
+using IranValidator.Core.Results;
 using IranValidator.Core.Validators;
 
 namespace IranValidator.FluentValidation;
@@ -125,7 +126,9 @@ public static class IranValidatorExtensions
         return rule.Configure(ruleConfig =>
             ruleConfig.MessageBuilder = ctx =>
                 IranFluentValidationLocalization.GetMessage(
-                    validator.Validate((string)ctx.PropertyValue!).ErrorCode,
+                    ctx.PropertyValue as string is string s
+                        ? validator.Validate(s).ErrorCode
+                        : ValidationErrorCode.InvalidType,
                     ctx.PropertyName));
     }
 }

@@ -7,12 +7,24 @@ namespace IranValidator.Core.Validators;
 
 /// <summary>
 /// Validates Iranian Passport Number (شماره گذرنامه).
-/// Format: 8 digits (old) or 1 letter + 8 digits (new).
+/// Current format (1405): 1 letter + 8 digits (9 characters).
 /// Valid letters: A, B, F, H, P, U, V, W, X, Y.
+/// Legacy 8-digit numeric format is deprecated since 1405 and disabled by default;
+/// enable <see cref="AllowLegacy8Digit"/> only for archive compatibility.
 /// No checksum algorithm.
 /// </summary>
 public sealed class PassportValidator : IStringValidator
 {
+    /// <summary>
+    /// When true, allows legacy 8-digit numeric passports for archive/backward compatibility.
+    /// Deprecated since 1405 — no valid 8-digit passports are in circulation.
+    /// Default is <c>false</c> (strict 9-character validation).
+    /// </summary>
+    // For archive compatibility only — deprecated.
+#pragma warning disable CA1805 // False positive: explicit ' = false' documents the default.
+    public static bool AllowLegacy8Digit { get; set; } = false;
+#pragma warning restore CA1805
+
     /// <summary>
     /// Valid passport series letters (first character of new-format passports).
     /// </summary>
@@ -93,9 +105,14 @@ public sealed class PassportValidator : IStringValidator
             string result = first == passport[0] ? normalized : first + normalized[1..];
             return ValidationResult.Ok(result);
         }
-        else // Length == 8
+        else // Length == 8 — legacy format (deprecated since 1405)
         {
-            // Format: 8 digits
+            // Legacy 8-digit passports are no longer in circulation as of 1405.
+            // Return InvalidFormat when legacy support is disabled (strict mode).
+            if (!AllowLegacy8Digit)
+                return ValidationResult.Error(ValidationErrorCode.InvalidFormat);
+
+            // AllowLegacy8Digit == true: preserve legacy behavior (8 ASCII digits) for archive compatibility.
             for (int i = 0; i < passport.Length; i++)
             {
                 if (!passport[i].IsAsciiDigit())

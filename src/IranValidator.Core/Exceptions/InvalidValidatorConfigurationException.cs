@@ -4,6 +4,7 @@ namespace IranValidator.Core.Exceptions;
 /// Exception thrown when a validator is configured incorrectly.
 /// This is for programming errors, not invalid input.
 /// </summary>
+/// <remarks>Kept for backward compatibility — no validator currently throws this; reserved for future configuration validation.</remarks>
 public sealed class InvalidValidatorConfigurationException : Exception
 {
     /// <summary>

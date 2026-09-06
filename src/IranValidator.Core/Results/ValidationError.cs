@@ -3,6 +3,7 @@ namespace IranValidator.Core.Results;
 /// <summary>
 /// Represents the result of a validation operation with detailed error information.
 /// </summary>
+/// <remarks>Kept for backward compatibility; prefer <see cref="ValidationResult"/> with <see cref="ValidationErrorCode"/>.</remarks>
 public sealed class ValidationError
 {
     /// <summary>Gets the error code.</summary>

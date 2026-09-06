@@ -25,7 +25,7 @@ ValidationResult result = validator.Validate("0010350829");
 // result.ErrorCode -> ValidationErrorCode.None در صورت موفقیت
 ```
 
-تمامی ۱۰ اعتبارسنج اصلی از الگوی Singleton پیروی می‌کنند (NationalCodeValidator.Instance و ...) و پشتیبانی از string و ReadOnlySpan<char> را فراهم می‌کنند. مقادیر null یا خالی طبق استاندارد DataAnnotations معتبر در نظر گرفته می‌شوند؛ در صورت اجباری بودن ورودی، بررسی وجود آن را به صورت جداگانه انجام دهید.
+تمامی ۱۰ اعتبارسنج اصلی از الگوی Singleton پیروی می‌کنند (NationalCodeValidator.Instance و ...) و پشتیبانی از string و ReadOnlySpan<char> را فراهم می‌کنند. در فراخوانی مستقیم Core، ورودی null/خالی با خطای ValueEmpty برمیگردد؛ اما اتریبیوتهای DataAnnotations و قوانین FluentValidation طبق قرارداد آن فریمورکها مقدار null/خالی را عبور میدهند — برای اجباری کردن، [Required] یا .NotEmpty() را جداگانه اضافه کنید.
 
 ### متدهای توسعه (Extension Methods)
 

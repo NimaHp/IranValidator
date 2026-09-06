@@ -1,0 +1,9 @@
+<Project>
+  <!-- Copy to Directory.Local.props (gitignored) for local-only overrides. -->
+  <!-- Example: redirect build artifacts -->
+  <!--
+  <PropertyGroup>
+    <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
+  </PropertyGroup>
+  -->
+</Project>

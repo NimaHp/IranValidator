@@ -1,6 +1,6 @@
 ﻿# IranValidator
 
-**اعتبارسنج استاندارد داده‌های فارسی در `.NET`** — نسخه `1.2.0`
+**اعتبارسنج استاندارد داده‌های فارسی در `.NET`** — نسخه `1.2.1`
 
 [![Build](https://github.com/NimaHp/IranValidator/actions/workflows/ci.yml/badge.svg)](https://github.com/NimaHp/IranValidator/actions)
 [![Benchmarks](https://github.com/NimaHp/IranValidator/actions/workflows/benchmarks.yml/badge.svg)](https://github.com/NimaHp/IranValidator/actions)
@@ -86,8 +86,8 @@
 
 <tr>
 <td>شماره پاسپورت</td>
-<td>۱ حرف + ۸ رقم</td>
-<td>فرمت رسمی گذرنامه</td>
+<td>۱ حرف + ۸ رقم (نسخه بیومتریک؛ فرمت ۸ رقمی قدیمی از ۱۴۰۵ منسوخ و پیشفرض نامعتبر است — آرشیو با `PassportValidator.AllowLegacy8Digit=true`)</td>
+<td>فرمت رسمی گذرنامه (بدون Checksum)</td>
 </tr>
 
 <tr>

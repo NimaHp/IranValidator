@@ -6,6 +6,24 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## [Unreleased]
 
+## [1.2.1] - 2026-09-06
+
+### Fixed
+
+* **Company National ID (11-digit) — source fix:** Wrong weights `[29,27,23,19,17,13,7,5,3,2]` since `1.0.0` replaced with reference `[29,27,23,19,17,29,27,23,19,17]` and the Excel formula (`ilenc.ir` / `excelengineer.ir/excel_id_code/`): `Σw=230`, `rem=(Σd[i]*w[i]+(d10+2)*230)%11` with `10→0` mapping. Invalid fixture data replaced with valid samples.
+* **Passport in 1405 — legacy deprecated:** Current format `1 letter+8 digits` (biometric); 8-digit legacy now `InvalidFormat` by default (`PassportValidator.AllowLegacy8Digit=false`, opt-in for archive).
+* **Vehicle plate:** Lowercase diplomatic/embassy `d/s` normalized to `D/S` (like passport).
+* **Docs sync:** Message table `InvalidChecksum`, `ValueTooLarge`/`InvalidType`, `Core: ValueEmpty` vs `DataAnnotations/Fluent: pass` note, and passport format unified in `README`.
+
+### Changed
+
+* **FluentValidation:** Fixed unsafe cast `(string)ctx.PropertyValue!` → `as string is string s ? Validate(s) : InvalidType`.
+* **ValidationResult:** Added parameterless `Ok()` alongside `Ok(string?)`.
+* **CompanyId:** Extracted `CompanyIdAlgorithm` (aligned with `NationalCode/EconomicCode`).
+* **UnicodeHelper:** Explicit `\u` escapes, fixed `PDI U+2069`.
+* **Infra:** `release.yml` fallback to `VersionPrefix`, `.editorconfig` without `BOM`, `Directory.Local.props.example`.
+* **Tests:** Moved `Phase3ValidationExtensionsTests` into `ValidationExtensionsTests`.
+
 ## [1.2.0] - 2026-08-24
 
 ### Added

@@ -6,6 +6,24 @@
 
 ## [Unreleased]
 
+## [1.2.1] - 2026-09-06
+
+### اصلاحشده
+
+* **شناسه ملی شرکت (۱۱ رقمی) — ترمیم منبع:** وزنهای اشتباه `[29,27,23,19,17,13,7,5,3,2]` از `1.0.0` با وزن مرجع `[29,27,23,19,17,29,27,23,19,17]` و فرمول اکسل (`ilenc.ir` / `excelengineer.ir/excel_id_code/`) جایگزین شد: `Σw=230` و `rem=(Σd[i]*w[i]+(d10+2)*230)%11` با نگاشت `10→0`. دادههای آزمون نادرست با نمونههای معتبر جایگزین شد.
+* **گذرنامه در ۱۴۰۵ — منسوخ ۸رقمی:** فرمت جاری `۱ حرف+۸ رقم` (بیومتریک) شد؛ `۸ رقمی` با `PassportValidator.AllowLegacy8Digit=false` پیشفرض نامعتبر (`InvalidFormat`) و فقط با `true` برای آرشیو مجاز.
+* **پلاک خودرو:** حرف دیپلماتیک/سفارت `d/s` کوچک به `D/S` نرمال شد (مثل گذرنامه).
+* **همگامسازی مستندات:** جدول پیام `InvalidChecksum`، `ValueTooLarge`/`InvalidType`، تبصره `Core: ValueEmpty` در برابر `DataAnnotations/Fluent: pass`، و فرمت گذرنامه در `README` یکسانسازی شد.
+
+### بهبود
+
+* **FluentValidation:** کست ناامن `(string)ctx.PropertyValue!` به `as string is string s ? Validate(s) : InvalidType` اصلاح شد.
+* **ValidationResult:** افزودن `Ok()` بدون پارامتر در کنار `Ok(string?)`.
+* **CompanyId:** استخراج `CompanyIdAlgorithm` (همسان `NationalCode/EconomicCode`).
+* **UnicodeHelper:** اسکیپهای `\u` صریح و رفع `PDI U+2069`.
+* **زیرساخت:** `release.yml` بازگشتی به `VersionPrefix`، `.editorconfig` بدون `BOM`، و `Directory.Local.props.example`.
+* **تست:** انتقال `Phase3ValidationExtensionsTests` به `ValidationExtensionsTests`.
+
 ## [1.2.0] - 2026-08-24
 
 ### افزودهشده

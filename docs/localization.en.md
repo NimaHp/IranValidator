@@ -10,7 +10,7 @@ IranValidator resolves user-facing validation messages through a culture-aware r
 | :--- | :--- |
 | IValidationMessageResolver | Primary interface mapping a ValidationErrorCode, property name, and CultureInfo to message text. |
 | ValidationMessageOptions | Thread-safe registry holding resolvers for individual languages and cultures. |
-| ValidationErrorCode | Enum with 10 explicit codes: InvalidLength, InvalidFormat, InvalidChecksum, InvalidCharacters, InvalidProvinceCode, InvalidBankCode, UnsupportedIssuer, ValueEmpty, InvalidAreaCode, and None. |
+| ValidationErrorCode | Enum with 12 codes: InvalidLength, InvalidFormat, InvalidChecksum, InvalidCharacters, InvalidProvinceCode, InvalidBankCode, UnsupportedIssuer, ValueEmpty, InvalidAreaCode, and None. |
 | Static Entry Points | Facade classes such as IranDataAnnotationsLocalization, IranFluentValidationLocalization, and IranAspNetCoreLocalization — thin layers over the same shared registry. |
 
 ## Resolution Precedence
@@ -105,14 +105,16 @@ To use a custom resolver on the DI path without touching the static registry, re
 | ValidationErrorCode | English | فارسی |
 | :--- | :--- | :--- |
 | InvalidLength | {name} has an invalid length. | طول {name} نامعتبر است. |
-| InvalidFormat | {name} has an invalid format. | قالب {name} نامعتبر است. |
-| InvalidChecksum | {name} fails the checksum verification. | {name} در بررسی جمع کنترلی نامعتبر است. |
-| InvalidCharacters | {name} contains invalid characters. | {name} حاوی کاراکترهای نامعتبر است. |
-| InvalidProvinceCode | {name} contains an invalid province code. | {name} حاوی کد استان نامعتبر است. |
-| InvalidBankCode | {name} contains an unknown bank code. | {name} حاوی کد بانک نامعتبر است. |
-| UnsupportedIssuer | {name} is issued by an unsupported card network. | {name} متعلق به شبکهٔ بانکی پشتیبانی‌نشده است. |
+| InvalidFormat | {name} has an invalid format. | فرمت {name} نامعتبر است. |
+| InvalidChecksum | {name} has an invalid checksum. | مجموع ارقام {name} نامعتبر است. |
+| InvalidCharacters | {name} contains invalid characters. | {name} شامل کاراکترهای نامعتبر است. |
+| InvalidProvinceCode | {name} has an invalid province code. | کد استان {name} نامعتبر است. |
+| InvalidBankCode | {name} has an invalid bank code. | کد بانک {name} نامعتبر است. |
+| UnsupportedIssuer | {name} is not issued by an Iranian bank. | {name} متعلق به هیچ بانک ایرانی نیست. |
 | ValueEmpty | {name} cannot be empty. | {name} نمی‌تواند خالی باشد. |
-| InvalidAreaCode | {name} contains an invalid area code. | {name} حاوی کد منطقهٔ نامعتبر است. |
+| InvalidAreaCode | {name} has an invalid area code. | {name} حاوی پیششماره نامعتبر است. |
+| ValueTooLarge | {name} is too long. | طول {name} بیش از حد مجاز است. |
+| InvalidType | {name} must be a string. | {name} باید یک رشته باشد. |
 | None | The value is valid. | مقدار معتبر است. |
 
 > {name} is the display name: the property name in FluentValidation, DisplayName/MemberName in DataAnnotations, and "The field" when no context exists.

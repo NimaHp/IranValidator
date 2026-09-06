@@ -22,10 +22,16 @@ public readonly struct ValidationResult
     }
 
     /// <summary>
-    /// Creates a successful validation result.
+    /// Creates a successful validation result with the given normalized value.
     /// </summary>
-    public static ValidationResult Ok(string? normalizedValue = null)
+    public static ValidationResult Ok(string? normalizedValue)
         => new(true, normalizedValue, ValidationErrorCode.None);
+
+    /// <summary>
+    /// Creates a successful validation result without a normalized value.
+    /// For success without normalized payload.
+    /// </summary>
+    public static ValidationResult Ok() => new(true, null, ValidationErrorCode.None);
 
     /// <summary>
     /// Creates a failed validation result with the specified error code.

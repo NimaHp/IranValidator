@@ -105,14 +105,16 @@ ValidationMessageOptions.AddResolver به‌ازای هر فرهنگ جایگز�
 | ValidationErrorCode | English | فارسی |
 | :--- | :--- | :--- |
 | InvalidLength | {name} has an invalid length. | طول {name} نامعتبر است. |
-| InvalidFormat | {name} has an invalid format. | قالب {name} نامعتبر است. |
-| InvalidChecksum | {name} fails the checksum verification. | {name} در بررسی جمع کنترلی نامعتبر است. |
-| InvalidCharacters | {name} contains invalid characters. | {name} حاوی کاراکترهای نامعتبر است. |
-| InvalidProvinceCode | {name} contains an invalid province code. | {name} حاوی کد استان نامعتبر است. |
-| InvalidBankCode | {name} contains an unknown bank code. | {name} حاوی کد بانک نامعتبر است. |
-| UnsupportedIssuer | {name} is issued by an unsupported card network. | {name} متعلق به شبکهٔ بانکی پشتیبانی‌نشده است. |
-| ValueEmpty | {name} cannot be empty. | {name} نمی‌تواند خالی باشد. |
-| InvalidAreaCode | {name} contains an invalid area code. | {name} حاوی کد منطقهٔ نامعتبر است. |
+| InvalidFormat | {name} has an invalid format. | فرمت {name} نامعتبر است. |
+| InvalidChecksum | {name} has an invalid checksum. | مجموع ارقام {name} نامعتبر است. |
+| InvalidCharacters | {name} contains invalid characters. | {name} شامل کاراکترهای نامعتبر است. |
+| InvalidProvinceCode | {name} has an invalid province code. | کد استان {name} نامعتبر است. |
+| InvalidBankCode | {name} has an invalid bank code. | کد بانک {name} نامعتبر است. |
+| UnsupportedIssuer | {name} is not issued by an Iranian bank. | {name} متعلق به هیچ بانک ایرانی نیست. |
+| ValueEmpty | {name} cannot be empty. | {name} نمیتواند خالی باشد. |
+| InvalidAreaCode | {name} has an invalid area code. | {name} حاوی پیششماره نامعتبر است. |
+| ValueTooLarge | {name} is too long. | طول {name} بیش از حد مجاز است. |
+| InvalidType | {name} must be a string. | {name} باید یک رشته باشد. |
 | None | The value is valid. | مقدار معتبر است. |
 
 > {name} نام نمایشی است: در FluentValidation نام ویژگی، در DataAnnotations DisplayName/MemberName، و وقتی کانتکستی وجود ندارد «The field».
