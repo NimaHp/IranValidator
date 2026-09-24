@@ -5,8 +5,13 @@ on:
     tags: ['v*']
   workflow_dispatch:
 
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
 permissions:
   contents: write # create the GitHub Release
+  packages: write # publish to GitHub Packages
   pull-requests: read
   id-token: write # NuGet Trusted Publishing (OIDC)
 
@@ -45,23 +50,29 @@ jobs:
         run: dotnet test IranValidator.slnx -c Release --no-build --logger "GitHubActions"
 
       - name: Pack
+        id: pack
         run: |
           for p in Core Localization DataAnnotations FluentValidation AspNetCore MinimalApis; do
-            dotnet pack "src/IranValidator.$p/IranValidator.$p.csproj" -c Release --no-build -o artifacts -p:Version="$VERSION"
+            dotnet pack "src/IranValidator.$p/IranValidator.$p.csproj" -c Release --no-build --no-restore -o artifacts -p:Version="$VERSION"
           done
 
-      # Trusted Publishing (OIDC): NuGet/login exchanges the GitHub Actions OIDC
-      # token for a short-lived NuGet API key, so no long-lived NUGET_API_KEY is needed.
+      - name: Push to GitHub Packages
+        if: always() && github.ref_type == 'tag' && steps.pack.outcome == 'success'
+        run: dotnet nuget push 'artifacts/*.nupkg' --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key "${{ secrets.GITHUB_TOKEN }}" --skip-duplicate
+
       - name: NuGet login (OIDC -> temp API key)
+        if: always() && github.ref_type == 'tag' && steps.pack.outcome == 'success'
         uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1
         id: login
         with:
           user: ${{ secrets.NUGET_USER }} # nuget.org profile name (not email)
 
       - name: Push to NuGet.org
+        if: always() && github.ref_type == 'tag' && steps.pack.outcome == 'success'
         run: dotnet nuget push 'artifacts/*.nupkg' --source https://api.nuget.org/v3/index.json --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
 
       - name: Create GitHub Release
+        if: github.ref_type == 'tag'
         run: gh release create "$GITHUB_REF_NAME" --generate-notes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
