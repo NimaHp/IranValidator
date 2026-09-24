@@ -6,6 +6,8 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-09-24
+
 ### Fixed
 
 * **Normalization:** `Iran` removal is now limited to vehicle plates, bidi controls are rejected by validators, and known zero-width/format characters are covered centrally.
