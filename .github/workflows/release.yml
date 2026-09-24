@@ -71,9 +71,22 @@ jobs:
         if: always() && github.ref_type == 'tag' && steps.pack.outcome == 'success'
         run: dotnet nuget push 'artifacts/*.nupkg' --source https://api.nuget.org/v3/index.json --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
 
+      - name: Prepare release notes
+        if: github.ref_type == 'tag'
+        run: |
+          set -euo pipefail
+          {
+            printf '## IranValidator %s\n\n' "$VERSION"
+            printf '### فارسی\n\n'
+            awk -v version="$VERSION" '$0 ~ "^## \\[" version "\\]" { found=1; next } found && /^## \\[/ { exit } found' CHANGELOG.md
+            printf '\n### English\n\n'
+            awk -v version="$VERSION" '$0 ~ "^## \\[" version "\\]" { found=1; next } found && /^## \\[/ { exit } found' CHANGELOG.en.md
+          } > /tmp/iranvalidator-release-notes.md
+          test -s /tmp/iranvalidator-release-notes.md
+
       - name: Create GitHub Release
         if: github.ref_type == 'tag'
-        run: gh release create "$GITHUB_REF_NAME" artifacts/*.nupkg artifacts/*.snupkg --generate-notes --verify-tag
+        run: gh release create "$GITHUB_REF_NAME" artifacts/*.nupkg artifacts/*.snupkg --notes-file /tmp/iranvalidator-release-notes.md --verify-tag
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
