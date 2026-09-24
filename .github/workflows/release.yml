@@ -73,7 +73,7 @@ jobs:
 
       - name: Create GitHub Release
         if: github.ref_type == 'tag'
-        run: gh release create "$GITHUB_REF_NAME" --generate-notes
+        run: gh release create "$GITHUB_REF_NAME" artifacts/*.nupkg artifacts/*.snupkg --generate-notes --verify-tag
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
