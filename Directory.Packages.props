@@ -7,10 +7,10 @@
   <ItemGroup>
     <!-- Core dependencies -->
     <PackageVersion Include="PolySharp" Version="1.16.0" />
-    <PackageVersion Include="System.Memory" Version="4.5.5" />
+    <PackageVersion Include="System.Memory" Version="4.6.3" />
 
     <!-- Build dependencies -->
-    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.303" />
 
     <!-- Test dependencies -->
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />

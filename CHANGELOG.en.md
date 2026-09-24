@@ -6,6 +6,10 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## [Unreleased]
 
+### Security
+
+* **Build tooling:** Updated `Microsoft.SourceLink.GitHub` from `8.0.0` to patched `10.0.303`, resolving CVE-2026-62900 in `Microsoft.Build.Tasks.Git`; updated `System.Memory` to `4.6.3` for dependency compatibility.
+
 ## [1.2.1] - 2026-09-06
 
 ### Fixed
