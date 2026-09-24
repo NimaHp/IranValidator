@@ -1,4 +1,4 @@
-﻿using IranValidator.Core.Constants;
+using IranValidator.Core.Constants;
 using IranValidator.Core.Normalization;
 using IranValidator.Core.Results;
 using IranValidator.Core.Utilities;
@@ -79,7 +79,7 @@ public sealed class VehiclePlateValidator : IStringValidator
             return ValidationResult.Error(ValidationErrorCode.ValueTooLarge);
 
         // Normalize input
-        string normalized = Normalizer.Normalize(value, original);
+        string normalized = Normalizer.NormalizeVehiclePlate(value, original);
 
         // Whitespace-only input normalizes to empty — report it as an empty value.
         if (normalized.Length == 0)
@@ -101,7 +101,12 @@ public sealed class VehiclePlateValidator : IStringValidator
         {
             if (i == 2)
             {
-                char c = plate[i];
+                char c = char.ToUpperInvariant(plate[i]);
+                if (c != plate[i])
+                {
+                    normalized = normalized[..2] + c + normalized[3..];
+                    plate = normalized.AsSpan();
+                }
                 if (!ValidLetters.Contains(c))
                     return ValidationResult.Error(ValidationErrorCode.InvalidFormat);
             }

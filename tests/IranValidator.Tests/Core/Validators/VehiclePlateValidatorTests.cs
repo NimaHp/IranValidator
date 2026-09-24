@@ -26,7 +26,9 @@ public class VehiclePlateValidatorTests
     [InlineData("12ز34567")]   // Ministry of Defence (ز) — Isfahan 67
     [InlineData("12ی34567")]   // Persian letter ی
     [InlineData("12D34567")]   // diplomatic (D)
+    [InlineData("12d34567")]   // diplomatic (lowercase d)
     [InlineData("78S98765")]   // embassy service (S)
+    [InlineData("78s98765")]   // embassy service (lowercase s)
     [InlineData("12ب 345 67")] // with spaces (normalized)
     [InlineData("۱۲ب۳۴۵۶۷")]   // Persian digits (normalized)
     [InlineData("۱۲ي۳۴۵۶۷")]   // Arabic yeh letter -> normalized to ی (valid)
@@ -40,6 +42,15 @@ public class VehiclePlateValidatorTests
         result.Success.Should().BeTrue();
         result.NormalizedValue.Should().NotBeNull();
         result.ErrorCode.Should().Be(ValidationErrorCode.None);
+    }
+
+    [Fact]
+    public void Validate_LowercaseServiceLetters_NormalizesToUppercase()
+    {
+        var d = _sut.Validate("12d34567");
+        var s = _sut.Validate("78s98765");
+        d.NormalizedValue.Should().Be("12D34567");
+        s.NormalizedValue.Should().Be("78S98765");
     }
 
     [Fact]

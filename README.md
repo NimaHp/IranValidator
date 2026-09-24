@@ -86,7 +86,7 @@
 
 <tr>
 <td>شماره پاسپورت</td>
-<td>۱ حرف + ۸ رقم (نسخه بیومتریک؛ فرمت ۸ رقمی قدیمی از ۱۴۰۵ منسوخ و پیشفرض نامعتبر است — آرشیو با `PassportValidator.AllowLegacy8Digit=true`)</td>
+<td>۱ حرف + ۸ رقم (نسخه بیومتریک؛ فرمت ۸ رقمی قدیمی از ۱۴۰۵ منسوخ و با `PassportValidator.Instance` نامعتبر است — آرشیو با `PassportValidator.CreateArchiveValidator()`)</td>
 <td>فرمت رسمی گذرنامه (بدون Checksum)</td>
 </tr>
 

@@ -10,21 +10,11 @@ namespace IranValidator.Core.Validators;
 /// Current format (1405): 1 letter + 8 digits (9 characters).
 /// Valid letters: A, B, F, H, P, U, V, W, X, Y.
 /// Legacy 8-digit numeric format is deprecated since 1405 and disabled by default;
-/// enable <see cref="AllowLegacy8Digit"/> only for archive compatibility.
+/// use <see cref="CreateArchiveValidator"/> only for archive compatibility.
 /// No checksum algorithm.
 /// </summary>
 public sealed class PassportValidator : IStringValidator
 {
-    /// <summary>
-    /// When true, allows legacy 8-digit numeric passports for archive/backward compatibility.
-    /// Deprecated since 1405 — no valid 8-digit passports are in circulation.
-    /// Default is <c>false</c> (strict 9-character validation).
-    /// </summary>
-    // For archive compatibility only — deprecated.
-#pragma warning disable CA1805 // False positive: explicit ' = false' documents the default.
-    public static bool AllowLegacy8Digit { get; set; } = false;
-#pragma warning restore CA1805
-
     /// <summary>
     /// Valid passport series letters (first character of new-format passports).
     /// </summary>
@@ -36,13 +26,20 @@ public sealed class PassportValidator : IStringValidator
         ['A', 'B', 'F', 'H', 'P', 'U', 'V', 'W', 'X', 'Y']);
 
     /// <summary>
-    /// Gets the singleton instance.
+    /// Gets the strict singleton instance.
     /// </summary>
-    public static PassportValidator Instance { get; } = new();
+    public static PassportValidator Instance { get; } = new(false);
 
     private static readonly CompositeNormalizer Normalizer = new();
 
-    private PassportValidator() { }
+    private readonly bool _allowLegacy8Digit;
+
+    private PassportValidator(bool allowLegacy8Digit)
+    {
+        _allowLegacy8Digit = allowLegacy8Digit;
+    }
+
+    public static PassportValidator CreateArchiveValidator() => new(true);
 
     /// <inheritdoc/>
     public ValidationResult Validate(string value)
@@ -62,7 +59,7 @@ public sealed class PassportValidator : IStringValidator
         return ValidateCore(value, null);
     }
 
-    private static ValidationResult ValidateCore(ReadOnlySpan<char> value, string? original)
+    private ValidationResult ValidateCore(ReadOnlySpan<char> value, string? original)
     {
 
         // Hard input-size bound BEFORE normalization — oversized payloads fail
@@ -109,10 +106,9 @@ public sealed class PassportValidator : IStringValidator
         {
             // Legacy 8-digit passports are no longer in circulation as of 1405.
             // Return InvalidFormat when legacy support is disabled (strict mode).
-            if (!AllowLegacy8Digit)
+            if (!_allowLegacy8Digit)
                 return ValidationResult.Error(ValidationErrorCode.InvalidFormat);
 
-            // AllowLegacy8Digit == true: preserve legacy behavior (8 ASCII digits) for archive compatibility.
             for (int i = 0; i < passport.Length; i++)
             {
                 if (!passport[i].IsAsciiDigit())

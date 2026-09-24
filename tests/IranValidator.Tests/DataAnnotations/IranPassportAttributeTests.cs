@@ -1,5 +1,5 @@
-using FluentAssertions;
 using System.ComponentModel.DataAnnotations;
+using FluentAssertions;
 using Xunit;
 
 namespace IranValidator.Tests.DataAnnotations;
@@ -17,18 +17,14 @@ public class IranPassportAttributeTests
     }
 
     [Fact]
-    public void IsValid_Legacy8Digit_RequiresAllowLegacy()
+    public void IsValid_Legacy8Digit_RequiresLocalOptIn()
     {
-        var attr = new IranValidator.DataAnnotations.IranPassportAttribute();
-        // Strict (default) → legacy 8-digit is InvalidFormat
-        attr.GetValidationResult("12345678", new ValidationContext(new { })).Should().NotBe(ValidationResult.Success);
-        bool prev = IranValidator.Core.Validators.PassportValidator.AllowLegacy8Digit;
-        try
-        {
-            IranValidator.Core.Validators.PassportValidator.AllowLegacy8Digit = true;
-            attr.GetValidationResult("12345678", new ValidationContext(new { })).Should().Be(ValidationResult.Success);
-        }
-        finally { IranValidator.Core.Validators.PassportValidator.AllowLegacy8Digit = prev; }
+        var strict = new IranValidator.DataAnnotations.IranPassportAttribute();
+        var archive = new IranValidator.DataAnnotations.IranPassportAttribute(allowLegacy8Digit: true);
+
+        strict.GetValidationResult("12345678", new ValidationContext(new { })).Should().NotBe(ValidationResult.Success);
+        archive.GetValidationResult("12345678", new ValidationContext(new { })).Should().Be(ValidationResult.Success);
+        strict.GetValidationResult("12345678", new ValidationContext(new { })).Should().NotBe(ValidationResult.Success);
     }
 
     [Theory]

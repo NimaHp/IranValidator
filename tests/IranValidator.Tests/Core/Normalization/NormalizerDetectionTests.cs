@@ -179,7 +179,7 @@ public class NormalizerDetectionTests
     public void CompositeNormalizer_HandlesAllVariantsTogether()
     {
         var normalizer = new CompositeNormalizer();
-        var result = normalizer.Normalize("\u200E۰۹۱۲-۱۲۳ ۴۵۶۷\u200F".AsSpan());
+        var result = normalizer.Normalize("۰۹۱۲-۱۲۳ ۴۵۶۷".AsSpan());
         result.Should().Be("09121234567");
     }
 
@@ -192,11 +192,11 @@ public class NormalizerDetectionTests
     }
 
     [Fact]
-    public void CompositeNormalizer_RemovesIranWordFromFullPlate()
+    public void CompositeNormalizer_DoesNotRemoveIranWord()
     {
         var normalizer = new CompositeNormalizer();
         var result = normalizer.Normalize("۱۲ ب ۳۴۵ ایران ۶۷".AsSpan());
-        result.Should().Be("12ب34567");
+        result.Should().Be("12ب345ایران67");
     }
 
     [Fact]
@@ -208,10 +208,18 @@ public class NormalizerDetectionTests
     }
 
     [Fact]
-    public void CompositeNormalizer_ConvertsArabicYehAndRemovesIranWord()
+    public void CompositeNormalizer_ConvertsArabicKaf()
     {
         var normalizer = new CompositeNormalizer();
-        var result = normalizer.Normalize("۱۲ ب ۳۴۵ ايران ۶۷".AsSpan());
-        result.Should().Be("12ب34567");
+        var result = normalizer.Normalize("۱۲ك۳۴۵۶۷".AsSpan());
+        result.Should().Be("12ک34567");
+    }
+
+    [Fact]
+    public void CompositeNormalizer_PreservesDirectionMarks()
+    {
+        var normalizer = new CompositeNormalizer();
+        var result = normalizer.Normalize("\u202E09121234567\u202C".AsSpan());
+        result.Should().Be("\u202E09121234567\u202C");
     }
 }

@@ -14,37 +14,43 @@ public class IranPassportValidatorTests
     [Theory]
     [InlineData("P12345678")]
     [InlineData("A12345678")]
-    [InlineData("12345678")] // legacy 8-digit — requires AllowLegacy8Digit
     public void IranPassport_ValidValue_Passes(string passport)
     {
-        bool isLegacy8 = passport.Length == 8 && passport.All(char.IsDigit);
-        bool prev = false;
-        if (isLegacy8)
-        {
-            prev = IranValidator.Core.Validators.PassportValidator.AllowLegacy8Digit;
-            IranValidator.Core.Validators.PassportValidator.AllowLegacy8Digit = true;
-        }
-        try
-        {
-            _validator.RuleFor(x => x.Value).IranPassport();
-            var result = _validator.Validate(new TestModel { Value = passport });
-            result.IsValid.Should().BeTrue();
-        }
-        finally
-        {
-            if (isLegacy8)
-                IranValidator.Core.Validators.PassportValidator.AllowLegacy8Digit = prev;
-        }
+        _validator.RuleFor(x => x.Value).IranPassport();
+        var result = _validator.Validate(new TestModel { Value = passport });
+        result.IsValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public void IranPassport_Legacy8Digit_RequiresLocalOptIn()
+    {
+        var strict = new InlineValidator<TestModel>();
+        strict.RuleFor(x => x.Value).IranPassport();
+        var archive = new InlineValidator<TestModel>();
+        archive.RuleFor(x => x.Value).IranPassport(allowLegacy8Digit: true);
+
+        strict.Validate(new TestModel { Value = "12345678" }).IsValid.Should().BeFalse();
+        archive.Validate(new TestModel { Value = "12345678" }).IsValid.Should().BeTrue();
+        strict.Validate(new TestModel { Value = "12345678" }).IsValid.Should().BeFalse();
     }
 
     [Theory]
     [InlineData("Z12345678")]
     [InlineData("1234567")]
     [InlineData("1234567890")]
+    [InlineData("1234567A")]
     public void IranPassport_InvalidValue_Fails(string passport)
     {
         _validator.RuleFor(x => x.Value).IranPassport();
         var result = _validator.Validate(new TestModel { Value = passport });
+        result.IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public void IranPassport_Archive_MalformedLegacy_Fails()
+    {
+        _validator.RuleFor(x => x.Value).IranPassport(allowLegacy8Digit: true);
+        var result = _validator.Validate(new TestModel { Value = "1234567A" });
         result.IsValid.Should().BeFalse();
     }
 

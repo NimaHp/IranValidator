@@ -257,17 +257,11 @@ public class ValidationExtensionsTests
     }
 
     [Fact]
-    public void IsIranPassport_Legacy8Digit_RequiresAllowLegacy()
+    public void IsIranPassport_Legacy8Digit_RequiresLocalOptIn()
     {
-        // 8-digit legacy is InvalidFormat by default (1405); only passes with opt-in.
         "12345678".IsIranPassport().Should().BeFalse();
-        bool prev = IranValidator.Core.Validators.PassportValidator.AllowLegacy8Digit;
-        try
-        {
-            IranValidator.Core.Validators.PassportValidator.AllowLegacy8Digit = true;
-            "12345678".IsIranPassport().Should().BeTrue();
-        }
-        finally { IranValidator.Core.Validators.PassportValidator.AllowLegacy8Digit = prev; }
+        "12345678".IsIranPassport(allowLegacy8Digit: true).Should().BeTrue();
+        "12345678".IsIranPassport().Should().BeFalse();
     }
 
     [Theory]

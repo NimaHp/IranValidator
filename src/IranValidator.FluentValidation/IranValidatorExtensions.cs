@@ -83,11 +83,14 @@ public static class IranValidatorExtensions
     /// <summary>
     /// Validates that the string is a valid Iranian Passport Number (شماره گذرنامه).
     /// </summary>
-    public static IRuleBuilderOptions<T, string?> IranPassport<T>(this IRuleBuilder<T, string?> ruleBuilder)
+    public static IRuleBuilderOptions<T, string?> IranPassport<T>(this IRuleBuilder<T, string?> ruleBuilder, bool allowLegacy8Digit = false)
     {
+        var validator = allowLegacy8Digit
+            ? PassportValidator.CreateArchiveValidator()
+            : PassportValidator.Instance;
         return WithLocalizedMessage(
-            ruleBuilder.Must(value => value is null || value.Length == 0 || PassportValidator.Instance.Validate(value).Success),
-            PassportValidator.Instance);
+            ruleBuilder.Must(value => value is null || value.Length == 0 || validator.Validate(value).Success),
+            validator);
     }
 
     /// <summary>

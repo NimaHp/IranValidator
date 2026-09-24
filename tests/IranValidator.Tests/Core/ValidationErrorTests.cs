@@ -49,6 +49,15 @@ public class ValidationResultTests
     }
 
     [Fact]
+    public void Ok_WithoutValue_CreatesSuccessResult()
+    {
+        var result = ValidationResult.Ok();
+        result.Success.Should().BeTrue();
+        result.NormalizedValue.Should().BeNull();
+        result.ErrorCode.Should().Be(ValidationErrorCode.None);
+    }
+
+    [Fact]
     public void Ok_WithNullValue_CreatesSuccessResult()
     {
         var result = ValidationResult.Ok(null);

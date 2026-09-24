@@ -81,6 +81,15 @@ public class CompositeNormalizerTests
     }
 
     [Fact]
+    public void Normalize_InputLargerThanStackallocThreshold_ReturnsNormalized()
+    {
+        var normalizer = new CompositeNormalizer();
+        var result = normalizer.Normalize(new string('0', 1025).AsSpan());
+        result.Length.Should().Be(1025);
+        result.Should().Be(new string('0', 1025));
+    }
+
+    [Fact]
     public void Normalize_EmptyInput_ReturnsEmpty()
     {
         var result = _normalizer.Normalize(ReadOnlySpan<char>.Empty);

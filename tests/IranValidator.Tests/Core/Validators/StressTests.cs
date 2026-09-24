@@ -93,25 +93,24 @@ public class ValidatorStressTests
     // === RTL / Unicode marks ===
 
     [Fact]
-    public void MobileValidator_WithRTLMarks_NormalizesCorrectly()
+    public void MobileValidator_WithRTLMarks_IsRejected()
     {
-        // "0912 123 4567" with RTL mark before
         var result = MobileValidator.Instance.Validate("\u200F09121234567");
-        result.Success.Should().BeTrue();
+        result.Success.Should().BeFalse();
     }
 
     [Fact]
-    public void MobileValidator_WithBidiOverrides_NormalizesCorrectly()
+    public void MobileValidator_WithBidiOverrides_IsRejected()
     {
         var result = MobileValidator.Instance.Validate("\u202E09121234567\u202C");
-        result.Success.Should().BeTrue();
+        result.Success.Should().BeFalse();
     }
 
     [Fact]
-    public void NationalCodeValidator_WithRTLMarks_NormalizesCorrectly()
+    public void NationalCodeValidator_WithRTLMarks_IsRejected()
     {
         var result = NationalCodeValidator.Instance.Validate("\u200F0010350829");
-        result.Success.Should().BeTrue();
+        result.Success.Should().BeFalse();
     }
 
     [Fact]

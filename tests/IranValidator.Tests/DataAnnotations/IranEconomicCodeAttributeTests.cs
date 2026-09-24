@@ -1,5 +1,5 @@
-using FluentAssertions;
 using System.ComponentModel.DataAnnotations;
+using FluentAssertions;
 using Xunit;
 
 namespace IranValidator.Tests.DataAnnotations;

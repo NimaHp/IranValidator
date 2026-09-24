@@ -90,7 +90,7 @@ public class TelephoneValidatorTests
     public void Validate_RtlMarker_ReturnsSuccess()
     {
         var result = _sut.Validate("\u200F02122345678");
-        result.Success.Should().BeTrue();
+        result.Success.Should().BeFalse();
     }
 
     [Fact]

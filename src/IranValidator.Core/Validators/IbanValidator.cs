@@ -47,7 +47,7 @@ public sealed class IbanValidator : IStringValidator
         if (value.Length > ValidationConstants.MaxInputLength)
             return ValidationResult.Error(ValidationErrorCode.ValueTooLarge);
 
-        // Normalize (remove spaces, dashes, direction marks, normalize digits)
+        // Normalize (remove spaces, dashes, zero-width marks, normalize digits)
         string normalized = Normalizer.Normalize(value, original);
 
         // Whitespace-only input normalizes to empty — report it as an empty value.
@@ -75,15 +75,15 @@ public sealed class IbanValidator : IStringValidator
             iban = normalized.AsSpan();
         }
 
+        for (int i = 4; i < iban.Length; i++)
+        {
+            if (!iban[i].IsAsciiDigit())
+                return ValidationResult.Error(ValidationErrorCode.InvalidCharacters);
+        }
+
         // Delegate to IBAN algorithm for MOD-97 checksum
         if (!IbanAlgorithm.Validate(iban))
             return ValidationResult.Error(ValidationErrorCode.InvalidChecksum);
-
-        // Iranian-specific: positions 4-6 (0-based) hold the 3-digit bank code.
-        // A checksum-valid IBAN with an unknown bank code (e.g. 999) must be
-        // rejected — MOD-97 alone cannot catch it.
-        if (!iban[4].IsAsciiDigit() || !iban[5].IsAsciiDigit() || !iban[6].IsAsciiDigit())
-            return ValidationResult.Error(ValidationErrorCode.InvalidCharacters);
 
         int bankCode = (iban[4] - '0') * 100 + (iban[5] - '0') * 10 + (iban[6] - '0');
         if (!IranianShebaBankCodes.Contains(bankCode))

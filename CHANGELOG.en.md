@@ -6,6 +6,12 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## [Unreleased]
 
+### Fixed
+
+* **Normalization:** `Iran` removal is now limited to vehicle plates, bidi controls are rejected by validators, and known zero-width/format characters are covered centrally.
+* **IBAN and vehicle plate:** Iranian BBAN input must be numeric, and lowercase `d/s` service letters normalize to `D/S`.
+* **Passport:** Removed the global mutable setting; `PassportValidator.Instance` is always strict, while DataAnnotations and FluentValidation wrappers provide a local, thread-safe archive opt-in.
+
 ### Security
 
 * **Build tooling:** Updated `Microsoft.SourceLink.GitHub` from `8.0.0` to patched `10.0.303`, resolving CVE-2026-62900 in `Microsoft.Build.Tasks.Git`; updated `System.Memory` to `4.6.3` for dependency compatibility.
@@ -15,7 +21,7 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ### Fixed
 
 * **Company National ID (11-digit) — source fix:** Wrong weights `[29,27,23,19,17,13,7,5,3,2]` since `1.0.0` replaced with reference `[29,27,23,19,17,29,27,23,19,17]` and the Excel formula (`ilenc.ir` / `excelengineer.ir/excel_id_code/`): `Σw=230`, `rem=(Σd[i]*w[i]+(d10+2)*230)%11` with `10→0` mapping. Invalid fixture data replaced with valid samples.
-* **Passport in 1405 — legacy deprecated:** Current format `1 letter+8 digits` (biometric); 8-digit legacy now `InvalidFormat` by default (`PassportValidator.AllowLegacy8Digit=false`, opt-in for archive).
+* **Passport in 1405 — legacy deprecated:** Current format is `1 letter+8 digits` (biometric); `PassportValidator.Instance` is strict and rejects 8-digit legacy values with `InvalidFormat`. Archive processing uses the immutable instance returned by `PassportValidator.CreateArchiveValidator()`.
 * **Vehicle plate:** Lowercase diplomatic/embassy `d/s` normalized to `D/S` (like passport).
 * **Docs sync:** Message table `InvalidChecksum`, `ValueTooLarge`/`InvalidType`, `Core: ValueEmpty` vs `DataAnnotations/Fluent: pass` note, and passport format unified in `README`.
 

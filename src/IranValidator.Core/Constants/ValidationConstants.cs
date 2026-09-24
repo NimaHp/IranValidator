@@ -1,4 +1,4 @@
-﻿namespace IranValidator.Core.Constants;
+namespace IranValidator.Core.Constants;
 
 /// <summary>
 /// Constants used across validation operations.

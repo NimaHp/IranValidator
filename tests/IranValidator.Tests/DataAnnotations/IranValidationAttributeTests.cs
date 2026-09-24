@@ -4,8 +4,8 @@ using FluentAssertions;
 using IranValidator.Core.Results;
 using IranValidator.DataAnnotations;
 using IranValidator.Localization;
-using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 using Xunit;
+using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace IranValidator.Tests.DataAnnotations;
 

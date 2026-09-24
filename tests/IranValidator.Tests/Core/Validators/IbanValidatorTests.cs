@@ -29,12 +29,21 @@ public class IbanValidatorTests
     }
 
     [Theory]
+    [InlineData("IR820540ABCDEFGHIJKLMNOPQT")]       // Checksum-valid IBAN with letters in account part
+    [InlineData("IR82054010268002081790900A")]
+    public void Validate_AccountPartWithLetters_ReturnsInvalidCharacters(string iban)
+    {
+        var result = _sut.Validate(iban);
+        result.Success.Should().BeFalse();
+        result.ErrorCode.Should().Be(ValidationErrorCode.InvalidCharacters);
+    }
+
+    [Theory]
     [InlineData("")]
     [InlineData("IR1234567890123456789012345")]    // Wrong length (25)
     [InlineData("IR123456789012345678901234567")]   // Wrong length (27)
     [InlineData("GB82WEST12345698765432")]           // Valid UK IBAN but not IR
     [InlineData("IR820540102680020817909003")]       // Wrong checksum (last digit differs)
-    [InlineData("IR82054010268002081790900A")]       // Invalid char
     [InlineData("XX820540102680020817909002")]       // Invalid country code
     public void Validate_InvalidIbans_ReturnsFailure(string iban)
     {

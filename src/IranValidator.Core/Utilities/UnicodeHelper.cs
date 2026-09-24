@@ -23,14 +23,21 @@ internal static class UnicodeHelper
 
     /// <summary>Checks if a character is a zero-width character.</summary>
     public static bool IsZeroWidth(char c)
-        => c == '\u200b'  // Zero Width Space
-        || c == '\u200c'  // Zero Width Non-Joiner
-        || c == '\u200d'  // Zero Width Joiner
-        || c == '\ufeff'; // Zero Width No-Break Space (BOM)
+        => c is '\u200b'
+        || c is '\u200c'
+        || c is '\u200d'
+        || c is '\u180e'
+        || c is '\u2060'
+        || c is '\u2061'
+        || c is '\u2062'
+        || c is '\u2063'
+        || c is '\u2064'
+        || c is '\ufeff';
 
     /// <summary>Checks if a character is a direction mark.</summary>
     public static bool IsDirectionMark(char c)
-        => c == '\u200e'  // Left-to-Right Mark
+        => c == '\u061c'
+        || c == '\u200e'  // Left-to-Right Mark
         || c == '\u200f'  // Right-to-Left Mark
         || c == '\u202a'  // Left-to-Right Embedding
         || c == '\u202b'  // Right-to-Left Embedding

@@ -36,7 +36,7 @@ IranValidator is a lightweight, high-performance, dependency-free validation lib
 | Postal Code | 10 digits | Official structure rule evaluation |
 | Card Number | 16 digits | Luhn algorithm + Iranian bank BIN prefix check |
 | IBAN | IR prefix | Single-pass MOD-97 algorithm + 3-digit bank code verification |
-| Passport Number | 1 letter + 8 digits (biometric; legacy 8-digit deprecated since 1405 — enable `PassportValidator.AllowLegacy8Digit` for archive) | Standard format evaluation |
+| Passport Number | 1 letter + 8 digits (biometric; legacy 8-digit deprecated since 1405 and rejected by `PassportValidator.Instance` — use `PassportValidator.CreateArchiveValidator()` for archive) | Standard format evaluation |
 | Vehicle Plate | Standard Iranian format (car & motorcycle) | Structural pattern + province code verification |
 | Landline Phone | 11 digits | 0 + 2-digit province code + 8-digit local number (starting 2–9 across 31 codes) |
 

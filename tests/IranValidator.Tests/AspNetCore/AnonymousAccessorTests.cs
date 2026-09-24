@@ -1,6 +1,6 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Reflection;
 
 namespace IranValidator.Tests.AspNetCore;
 

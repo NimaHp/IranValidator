@@ -1,4 +1,4 @@
-﻿namespace IranValidator.Core.Constants;
+namespace IranValidator.Core.Constants;
 
 /// <summary>
 /// Three-digit issuance (province) codes used on Iranian motorcycle plates

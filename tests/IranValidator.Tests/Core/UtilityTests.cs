@@ -120,6 +120,12 @@ public class UnicodeHelperTests
     [InlineData('\u200B', true)]  // Zero Width Space
     [InlineData('\u200C', true)]  // Zero Width Non-Joiner
     [InlineData('\u200D', true)]  // Zero Width Joiner
+    [InlineData('\u180E', true)]
+    [InlineData('\u2060', true)]
+    [InlineData('\u2061', true)]
+    [InlineData('\u2062', true)]
+    [InlineData('\u2063', true)]
+    [InlineData('\u2064', true)]
     [InlineData('\uFEFF', true)]  // Zero Width No-Break Space (BOM)
     [InlineData(' ', false)]
     [InlineData('-', false)]
@@ -130,6 +136,7 @@ public class UnicodeHelperTests
     }
 
     [Theory]
+    [InlineData('\u061C', true)]
     [InlineData('\u200E', true)]  // LRM
     [InlineData('\u200F', true)]  // RLM
     [InlineData('\u202A', true)]  // LRE

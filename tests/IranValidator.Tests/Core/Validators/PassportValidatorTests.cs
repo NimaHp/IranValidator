@@ -11,42 +11,30 @@ public class PassportValidatorTests
 
     private static ValidationResult ValidateWithLegacyIfNeeded(string passport)
     {
-        // Legacy 8-digit passports are disabled by default (AllowLegacy8Digit=false since 1405).
-        // Tests that exercise the deprecated 8-digit format must opt in explicitly.
-        bool isLegacy8 = passport.Length == 8 && passport.All(char.IsDigit);
-        if (!isLegacy8)
-            return PassportValidator.Instance.Validate(passport.AsSpan());
-
-        bool prev = PassportValidator.AllowLegacy8Digit;
-        try
-        {
-            PassportValidator.AllowLegacy8Digit = true;
-            return PassportValidator.Instance.Validate(passport.AsSpan());
-        }
-        finally
-        {
-            PassportValidator.AllowLegacy8Digit = prev;
-        }
+        var validator = passport.Length == 8 && passport.All(char.IsDigit)
+            ? PassportValidator.CreateArchiveValidator()
+            : PassportValidator.Instance;
+        return validator.Validate(passport.AsSpan());
     }
 
     private static ValidationResult ValidateWithLegacyIfNeeded(ReadOnlySpan<char> passport)
         => ValidateWithLegacyIfNeeded(passport.ToString());
 
     [Theory]
-    [InlineData("P12345678")]   // standard new format - P series
-    [InlineData("A12345678")]   // A series
-    [InlineData("B12345678")]   // B series
-    [InlineData("U12345678")]   // U series
-    [InlineData("V12345678")]   // V series
-    [InlineData("W12345678")]   // W series
-    [InlineData("X12345678")]   // X series
-    [InlineData("Y12345678")]   // Y series
-    [InlineData("H12345678")]   // H series (diplomatic)
-    [InlineData("F12345678")]   // F series
-    [InlineData("00000000")]    // old format - 8 digits (legacy, requires AllowLegacy8Digit)
-    [InlineData("12345678")]    // old format (legacy)
-    [InlineData("p12345678")]   // lowercase letter (should normalize to uppercase)
-    [InlineData("a12345678")]   // lowercase letter
+    [InlineData("P12345678")]
+    [InlineData("A12345678")]
+    [InlineData("B12345678")]
+    [InlineData("U12345678")]
+    [InlineData("V12345678")]
+    [InlineData("W12345678")]
+    [InlineData("X12345678")]
+    [InlineData("Y12345678")]
+    [InlineData("H12345678")]
+    [InlineData("F12345678")]
+    [InlineData("00000000")]
+    [InlineData("12345678")]
+    [InlineData("p12345678")]
+    [InlineData("a12345678")]
     public void Validate_ValidFormats_ReturnsSuccess(string passport)
     {
         var result = ValidateWithLegacyIfNeeded(passport.AsSpan());
@@ -64,22 +52,46 @@ public class PassportValidatorTests
     }
 
     [Theory]
-    [InlineData("")]           // empty
-    [InlineData("1234567")]     // too short (7 chars)
-    [InlineData("1234567890")]  // too long (10 chars)
-    [InlineData("Z12345678")]   // invalid letter Z
-    [InlineData("C12345678")]   // invalid letter C
-    [InlineData("D12345678")]   // invalid letter D
-    [InlineData("E12345678")]   // invalid letter E
-    [InlineData("1234567A")]    // letter at wrong position (8-digit format)
-    [InlineData("P1234567A")]   // letter at wrong position (9-digit format)
-    [InlineData("AB1234567")]   // two letters
-    [InlineData("PABCD5678")]   // letters in digit positions
+    [InlineData("")]
+    [InlineData("1234567")]
+    [InlineData("1234567890")]
+    [InlineData("Z12345678")]
+    [InlineData("C12345678")]
+    [InlineData("D12345678")]
+    [InlineData("E12345678")]
+    [InlineData("1234567A")]
+    [InlineData("P1234567A")]
+    [InlineData("AB1234567")]
+    [InlineData("PABCD5678")]
     public void Validate_InvalidFormats_ReturnsFailure(string passport)
     {
         var result = _sut.Validate(passport.AsSpan());
         result.Success.Should().BeFalse();
         result.ErrorCode.Should().NotBe(ValidationErrorCode.None);
+    }
+
+    [Fact]
+    public void Validate_Archive_MalformedLegacy_ReturnsFailure()
+    {
+        var archive = PassportValidator.CreateArchiveValidator();
+
+        foreach (var passport in new[] { "1234567A", "1234567#" })
+        {
+            var result = archive.Validate(passport);
+            result.Success.Should().BeFalse();
+            result.ErrorCode.Should().Be(ValidationErrorCode.InvalidCharacters);
+        }
+    }
+
+    [Fact]
+    public void Validate_StrictAndArchiveInstances_AreIndependent()
+    {
+        var strict = PassportValidator.Instance;
+        var archive = PassportValidator.CreateArchiveValidator();
+
+        strict.Validate("12345678").ErrorCode.Should().Be(ValidationErrorCode.InvalidFormat);
+        archive.Validate("12345678").Success.Should().BeTrue();
+        strict.Validate("12345678").ErrorCode.Should().Be(ValidationErrorCode.InvalidFormat);
     }
 
     [Fact]
@@ -122,27 +134,22 @@ public class PassportValidatorTests
     }
 
     [Fact]
-    public void Validate_ConcurrentAccess_NoRaceCondition()
+    public void Validate_ConcurrentStrictAndArchiveAccess_NoRaceCondition()
     {
-        var passports = new[] { "P12345678", "A12345678", "U12345678" };
-        var legacyPassports = new[] { "12345678" };
-        var bag = new System.Collections.Concurrent.ConcurrentBag<ValidationResult>();
+        var strict = PassportValidator.Instance;
+        var archive = PassportValidator.CreateArchiveValidator();
+        var results = new System.Collections.Concurrent.ConcurrentBag<bool>();
 
-        Parallel.For(0, 100, i =>
+        Parallel.For(0, 1000, i =>
         {
-            var p = passports[i % passports.Length];
-            var result = PassportValidator.Instance.Validate(p.AsSpan());
-            bag.Add(result);
+            var result = (i & 1) == 0
+                ? strict.Validate("P12345678").Success
+                : archive.Validate("12345678").Success;
+            results.Add(result);
         });
 
-        bag.Should().AllSatisfy(r => r.Success.Should().BeTrue());
-
-        // Legacy 8-digit still works when explicitly opted in (separate from concurrent strict path).
-        foreach (var lp in legacyPassports)
-        {
-            var r = ValidateWithLegacyIfNeeded(lp);
-            r.Success.Should().BeTrue();
-        }
+        results.Should().HaveCount(1000);
+        results.Should().AllBeEquivalentTo(true);
     }
 
     private static void ResultShouldBeEmptyError(ValidationResult result)

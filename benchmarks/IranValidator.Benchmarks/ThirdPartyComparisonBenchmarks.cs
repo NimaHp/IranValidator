@@ -1,10 +1,9 @@
 using BenchmarkDotNet.Attributes;
 using IranValidator.Core.Validators;
-
+using DNT = DNTPersianUtils.Core;
 // Aliases used to disambiguate the same-named extension/static methods
 // shipped by Persian.Plus and DNTPersianUtils.Core.
 using PP = Persian.Plus.Extensions;
-using DNT = DNTPersianUtils.Core;
 
 namespace IranValidator.Benchmarks;
 

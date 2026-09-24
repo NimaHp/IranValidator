@@ -32,6 +32,25 @@ public class LuhnAlgorithmExtendedTests
     }
 }
 
+public class CompanyIdAlgorithmExtendedTests
+{
+    [Theory]
+    [InlineData("10380284752", true)]
+    [InlineData("10380284790", true)]
+    [InlineData("10380058726", true)]
+    [InlineData("10260353690", true)]
+    [InlineData("1038028475", false)]
+    [InlineData("103802847521", false)]
+    [InlineData("11111111111", false)]
+    [InlineData("103802847A2", false)]
+    [InlineData("1038028475A", false)]
+    [InlineData("1038028475X", false)]
+    public void Validate_WithVariousInputs_ReturnsExpected(string code, bool expected)
+    {
+        CompanyIdAlgorithm.Validate(code.AsSpan()).Should().Be(expected);
+    }
+}
+
 public class NationalCodeAlgorithmExtendedTests
 {
     [Theory]

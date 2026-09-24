@@ -27,4 +27,5 @@ This table maps common operations to their IranValidator equivalents:
 2. **Automatic Normalization:** Persian/Arabic digits, zero-width spaces (ZWNJ), spaces, and dashes are automatically normalized prior to validation — eliminating the need for explicit manual conversions (ToEnglishNumber). For example, "۰۹۱۲-۱۲۳ ۴۵۶۷" is evaluated as valid.
 3. **Null and Empty Handling:** null and empty strings are treated as valid by convention (matching DataAnnotations behavior). Enforce presence separately when a field is required.
 4. **Structured Error Codes:** 10 discrete codes in ValidationErrorCode offer granular feedback (e.g., an IBAN with an invalid bank code produces InvalidBankCode).
-5. **Stateless & Thread-Safe:** All validator singletons maintain no state, ensuring safe concurrent execution.
+5. **Stateless & Thread-Safe:** All validators have no mutable global state; `PassportValidator.Instance` is always strict, while archive processing uses `PassportValidator.CreateArchiveValidator()` or the local opt-in on the corresponding wrapper.
+6. **Bidi Control Handling:** Direction-control characters are rejected by validators; normalize them in the input boundary only if the surrounding application explicitly requires that behavior.
