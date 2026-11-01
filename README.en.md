@@ -124,19 +124,19 @@ Detailed guide: [Localization Documentation](docs/localization.en.md).
 
 ## Performance Benchmarks
 
-Measured using **BenchmarkDotNet (MediumRun)** on GitHub Actions (ubuntu-latest) running .NET <!-- bench-dotnet -->`10.0.12`<!-- /bench-dotnet --> (BenchmarkDotNet <!-- bench-bdn -->`v0.14.0`<!-- /bench-bdn -->). Lower values represent better performance.
+Measured using **BenchmarkDotNet (MediumRun)** on GitHub Actions (ubuntu-latest) running .NET <!-- bench-dotnet -->`10.0.14`<!-- /bench-dotnet --> (BenchmarkDotNet <!-- bench-bdn -->`v0.14.0`<!-- /bench-bdn -->). Lower values represent better performance.
 
 ### Execution Time (ns)
 
 <!-- bench-table:summary-time -->
 | Validator | IranValidator | Persian.Plus | DNTPersianUtils |
 | :--- | :--- | :--- | :--- |
-| National Code | 23.14 | 156.70 | 116.33 |
-| Company ID | 24.65 | 287.29 | 127.33 |
-| Mobile | 26.67 | 95.16 | 125.06 |
-| Postal Code | 11.89 | 69.64 | 108.90 |
-| Card Number | 42.68 | 458.16 | 359.72 |
-| IBAN | 138.85 | 343.26 | 207.37 |
+| National Code | 14.16 | 71.86 | 69.77 |
+| Company ID | 15.49 | 150.44 | 72.74 |
+| Mobile | 12.04 | 47.13 | 59.97 |
+| Postal Code | 5.65 | 35.21 | 55.05 |
+| Card Number | 25.33 | 248.39 | 190.74 |
+| IBAN | 95.43 | 167.88 | 125.69 |
 <!-- /bench-table:summary-time -->
 
 ### Memory Allocation (Bytes)
@@ -144,12 +144,12 @@ Measured using **BenchmarkDotNet (MediumRun)** on GitHub Actions (ubuntu-latest)
 <!-- bench-table:summary-alloc -->
 | Validator | IranValidator | Persian.Plus | DNTPersianUtils |
 | :--- | :--- | :--- | :--- |
-| National Code | 0 | 0 | 169 |
-| Company ID | 0 | 0 | 192 |
-| Mobile | 0 | 0 | 0 |
-| Postal Code | 0 | 0 | 96 |
-| Card Number | 0 | 0 | 0 |
-| IBAN | 0 | 0 | 0 |
+| National Code | 0 | 0 | 192 |
+| Company ID | 0 | 119 | 0 |
+| Mobile | 0 | 0 | 96 |
+| Postal Code | 0 | 0 | 80 |
+| Card Number | 0 | 0 | 344 |
+| IBAN | 0 | 0 | 134 |
 <!-- /bench-table:summary-alloc -->
 
 **Key Takeaways:**

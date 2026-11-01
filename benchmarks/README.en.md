@@ -16,9 +16,9 @@ Automated benchmark checks run monthly in CI to detect potential performance reg
 
 ## Methodology
 
-* **Environment:** GitHub Actions runner (ubuntu-latest — 2 vCPU / 7 GB RAM) · **.NET SDK:** <!-- bench-dotnet -->`10.0.12`<!-- /bench-dotnet --> · **BenchmarkDotNet:** <!-- bench-bdn -->`v0.14.0`<!-- /bench-bdn -->
+* **Environment:** GitHub Actions runner (ubuntu-latest — 2 vCPU / 7 GB RAM) · **.NET SDK:** <!-- bench-dotnet -->`10.0.14`<!-- /bench-dotnet --> · **BenchmarkDotNet:** <!-- bench-bdn -->`v0.14.0`<!-- /bench-bdn -->
 * **Job Profile:** MediumRun (15 iterations, 10 warmups, 2 launches) with MemoryDiagnoser enabled.
-* **Execution Date:** <!-- bench-date -->`2026-10-01`<!-- /bench-date -->
+* **Execution Date:** <!-- bench-date -->`2026-11-01`<!-- /bench-date -->
 * **Validation Consistency:** All test cases use valid inputs verified across all libraries to ensure fair execution comparison.
 * **Return Type Distinction:** Competitor libraries return a simple bool, whereas IranValidator returns a structured ValidationResult struct without incurring memory allocations.
 
@@ -35,26 +35,26 @@ Automated benchmark checks run monthly in CI to detect potential performance reg
 <!-- bench-table:overloads -->
 | Method | Mean | Allocated |
 |---|---|---|
-| ValidateNationalCodeString | 22.02 ns | 0 B |
-| ValidateNationalCodeSpan | 140.45 ns | 37 B |
-| ValidateCompanyIdString | 25.40 ns | 0 B |
-| ValidateCompanyIdSpan | 147.59 ns | 48 B |
-| ValidateEconomicCodeString | 26.70 ns | 0 B |
-| ValidateEconomicCodeSpan | 150.03 ns | 48 B |
-| ValidateMobileString | 23.01 ns | 0 B |
-| ValidateMobileSpan | 141.74 ns | 48 B |
-| ValidateTelephoneString | 20.64 ns | 0 B |
-| ValidateTelephoneSpan | 137.75 ns | 48 B |
-| ValidatePostalCodeString | 11.89 ns | 0 B |
-| ValidatePostalCodeSpan | 125.77 ns | 13471 B |
-| ValidateCardNumberString | 42.82 ns | 0 B |
-| ValidateCardNumberSpan | 179.73 ns | 56 B |
-| ValidatePassportString | 16.11 ns | 0 B |
-| ValidatePassportSpan | 129.11 ns | 40 B |
-| ValidateVehiclePlateString | 17.80 ns | 0 B |
-| ValidateVehiclePlateSpan | 125.12 ns | 40 B |
-| ValidateIbanString | 138.84 ns | 0 B |
-| ValidateIbanSpan | 309.76 ns | 80 B |
+| ValidateNationalCodeString | 13.68 ns | 0 B |
+| ValidateNationalCodeSpan | 70.25 ns | 48 B |
+| ValidateCompanyIdString | 14.70 ns | 0 B |
+| ValidateCompanyIdSpan | 73.31 ns | 0 B |
+| ValidateEconomicCodeString | 15.91 ns | 0 B |
+| ValidateEconomicCodeSpan | 75.50 ns | 0 B |
+| ValidateMobileString | 11.98 ns | 0 B |
+| ValidateMobileSpan | 68.37 ns | 0 B |
+| ValidateTelephoneString | 10.64 ns | 0 B |
+| ValidateTelephoneSpan | 66.90 ns | 48 B |
+| ValidatePostalCodeString | 5.59 ns | 0 B |
+| ValidatePostalCodeSpan | 61.52 ns | 0 B |
+| ValidateCardNumberString | 25.69 ns | 0 B |
+| ValidateCardNumberSpan | 90.24 ns | 0 B |
+| ValidatePassportString | 7.70 ns | 0 B |
+| ValidatePassportSpan | 65.19 ns | 0 B |
+| ValidateVehiclePlateString | 9.58 ns | 0 B |
+| ValidateVehiclePlateSpan | 61.07 ns | 0 B |
+| ValidateIbanString | 97.23 ns | 0 B |
+| ValidateIbanSpan | 176.96 ns | 0 B |
 <!-- /bench-table:overloads --> |  |  |
 
 **Insights:**
@@ -67,24 +67,24 @@ Automated benchmark checks run monthly in CI to detect potential performance reg
 <!-- bench-table:vs-rivals -->
 | Method | Mean | Allocated |
 |---|---|---|
-| ValidateNationalCodeIranValidator | 23.14 ns | 0 B |
-| ValidateNationalCodePersianPlus | 156.70 ns | 0 B |
-| ValidateNationalCodeDntPersianUtils | 116.33 ns | 169 B |
-| ValidateCompanyIdIranValidator | 24.65 ns | 0 B |
-| ValidateCompanyIdPersianPlus | 287.29 ns | 0 B |
-| ValidateCompanyIdDntPersianUtils | 127.33 ns | 192 B |
-| ValidateMobileIranValidator | 26.67 ns | 0 B |
-| ValidateMobilePersianPlus | 95.16 ns | 0 B |
-| ValidateMobileDntPersianUtils | 125.06 ns | 0 B |
-| ValidatePostalCodeIranValidator | 11.89 ns | 0 B |
-| ValidatePostalCodePersianPlus | 69.64 ns | 0 B |
-| ValidatePostalCodeDntPersianUtils | 108.90 ns | 96 B |
-| ValidateCardNumberIranValidator | 42.68 ns | 0 B |
-| ValidateCardNumberPersianPlus | 458.16 ns | 0 B |
-| ValidateCardNumberDntPersianUtils | 359.72 ns | 0 B |
-| ValidateIbanIranValidator | 138.85 ns | 0 B |
-| ValidateIbanPersianPlus | 343.26 ns | 0 B |
-| ValidateIbanDntPersianUtils | 207.37 ns | 0 B |
+| ValidateNationalCodeIranValidator | 14.16 ns | 0 B |
+| ValidateNationalCodePersianPlus | 71.86 ns | 0 B |
+| ValidateNationalCodeDntPersianUtils | 69.77 ns | 192 B |
+| ValidateCompanyIdIranValidator | 15.49 ns | 0 B |
+| ValidateCompanyIdPersianPlus | 150.44 ns | 119 B |
+| ValidateCompanyIdDntPersianUtils | 72.74 ns | 0 B |
+| ValidateMobileIranValidator | 12.04 ns | 0 B |
+| ValidateMobilePersianPlus | 47.13 ns | 0 B |
+| ValidateMobileDntPersianUtils | 59.97 ns | 96 B |
+| ValidatePostalCodeIranValidator | 5.65 ns | 0 B |
+| ValidatePostalCodePersianPlus | 35.21 ns | 0 B |
+| ValidatePostalCodeDntPersianUtils | 55.05 ns | 80 B |
+| ValidateCardNumberIranValidator | 25.33 ns | 0 B |
+| ValidateCardNumberPersianPlus | 248.39 ns | 0 B |
+| ValidateCardNumberDntPersianUtils | 190.74 ns | 344 B |
+| ValidateIbanIranValidator | 95.43 ns | 0 B |
+| ValidateIbanPersianPlus | 167.88 ns | 0 B |
+| ValidateIbanDntPersianUtils | 125.69 ns | 134 B |
 <!-- /bench-table:vs-rivals --> |  |  |
 
 **Key Takeaways:**
@@ -99,12 +99,12 @@ Automated benchmark checks run monthly in CI to detect potential performance reg
 <!-- bench-table:regex -->
 | Implementation | Mean |
 |---|---|
-| Hand-rolled span (mobile) | 23.05 ns |
-| `Regex` compiled | 26.56 ns |
-| `GeneratedRegex` | 18.86 ns |
-| Hand-rolled span (postal) | 12.57 ns |
-| `Regex` compiled | 25.62 ns |
-| `GeneratedRegex` | 19.27 ns |
+| Hand-rolled span (mobile) | 12.13 ns |
+| `Regex` compiled | 15.91 ns |
+| `GeneratedRegex` | 12.64 ns |
+| Hand-rolled span (postal) | 5.57 ns |
+| `Regex` compiled | 16.03 ns |
+| `GeneratedRegex` | 12.57 ns |
 <!-- /bench-table:regex --> |  |
 
 Direct span parsing outperforms both .NET 10 compiled and generated regular expressions by **1.6–2.4×** — regex pays per-call startup overhead even with pooled runners.
